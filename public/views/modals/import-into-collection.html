@@ -1,0 +1,77 @@
+<div class="modal-header flex-horizontal import-into-collection-modal">
+    <div class="modal-title full-flex">
+        Import File
+    </div>
+</div>
+
+<div class="modal-body flex-vertical import-into-collection-modal">
+    <div class="options-modal-prompt">
+        Choose a destination to import this file:
+
+        <div class="nudge-right-more nudge-down-more prompt-row flex-horizontal">
+            <div class="prompt-labels unflex">
+                <div class="prompt-label nudge-down-more ">
+                    Collection:
+                </div>
+                <div class="prompt-label nudge-down-more ">
+                    Drawer:
+                </div>
+                <div class="prompt-label nudge-down-more ">
+                    New Name:
+                </div>
+            </div>
+            <div class="prompt-controls full-flex nudge-right-more">
+                <div class="prompt-control nudge-down-more full-flex">
+                    <select ng-model="selection.collection"
+                            ng-change="collectionSelected()"
+                            ng-options="item as item.text for item in opts.collections">
+                    </select>
+                </div>
+                <div class="prompt-control nudge-down-more full-flex">
+                    <select ng-model="selection.drawer"
+                            ng-options="item as item.text for item in opts.drawers">
+                    </select>
+                </div>
+                <div class="prompt-control nudge-down-more full-flex">
+                    <input type="text" ng-model="selection.file">
+                </div>
+            </div>
+        </div>
+
+        <div class="error-block validation-error" ng-if="errorMessage">
+            <br />
+            {{ errorMessage }}
+        </div>
+
+    </div>
+
+    <div class="option-buttons">
+
+        <div ng-if="working" class="loading-block">
+            <i class="fa fa-3x fa-spinner fa-spin"></i>
+        </div>
+
+        <div ng-if="!working" class="unflex flex-horizontal">
+
+            <a href="{{ importData.url }}" download>
+                <div class="clickable option-button">
+                    <i class="fa fa-lg fa-external-link"></i>
+                    Download
+                </div>
+            </a>
+
+            <div class="clickable option-button"
+                 ng-class="{'disabled': !validate()}"
+                 ng-click="ok()">
+                <i class="fa fa-lg fa-check"></i>
+                Import
+            </div>
+            <div class="clickable option-button" ng-click="cancel()">
+                <i class="fa fa-lg fa-close"></i>
+                Cancel
+            </div>
+        </div>
+
+    </div>
+
+</div>

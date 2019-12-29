@@ -1,0 +1,28 @@
+<div class="unflex flex-horizontal" ng-keydown="keyDown($event)">
+
+    <div class="full-flex"></div>
+
+    <div class="full-flex search-box flex-horizontal">
+        <div class="unflex nudge-left-more clickable"
+             show-if-authorized="create tables"
+             ng-click="addTable()">
+            <i class="fa fa-plus"></i>
+        </div>
+        <div class="full-flex">
+            <input type="text" ng-model="filterText" auto-focus ng-change="filterByTitle()" class="search" placeholder="Search tables">
+        </div>
+        <div class="unflex nudge-right-more clickable" ng-if="!currentFilter" ng-click="filterByTitle()">
+            <i class="fa fa-search"></i>
+        </div>
+        <div class="unflex nudge-right-more clickable" ng-if="currentFilter" ng-click="clearFilter()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+
+    <div class="full-flex"></div>
+
+</div>
+
+<div class="full-flex auto-scroll table-tiles">
+
+</div>

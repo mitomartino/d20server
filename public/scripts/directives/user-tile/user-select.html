@@ -1,0 +1,36 @@
+<div class="unflex">
+    <div class="flex-horizontal nudge-left">
+        <div class="unflex">
+            <i class="fa fa-lg fa-search general-icon icon-spacer"></i>
+        </div>
+        <div class="full-flex">
+            <input type="text"
+                   name="userFilter"
+                   ng-model="filterText"
+                   title="find user by nickname"
+                   placeholder="Search by nickname..."
+                   ng-change="applyFilter()"
+            >
+        </div>
+    </div>
+</div>
+
+<div class="user-container full-flex auto-scroll">
+    <div ng-repeat="user in filteredUsers"
+         class="user clickable flex-horizontal"
+         ng-click="toggleSelect(user)"
+    >
+        <div class="unflex">
+            <img ng-src="{{ user.avatar }}" class="avatar-thumb">
+        </div>
+
+        <div class="full-flex nickname text-single-line">
+            {{ user.nickname }}
+        </div>
+
+        <div class="unflex">
+            <i class="fa selected-icon success-icon fa-check" ng-if="selectionLookup[user._id]">
+            </i>
+        </div>
+    </div>
+</div>

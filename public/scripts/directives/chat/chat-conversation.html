@@ -1,0 +1,87 @@
+<div class="message-options unflex flex-horizontal" >
+
+    <div class="unflex clickable" ng-click="done()" title="Go back to the list of conversations">
+        <i class="fa fa-border spacer-icon general-icon fa-arrow-left clickable"></i>
+    </div>
+
+    <div style="position:relative;" ng-if="conversation" class="unflex clickable" ng-click="setWhisper()" title="Whisper messages to select users">
+        <i class="fa fa-border spacer-icon general-icon fa-users clickable">
+            <div style="position:absolute;" class="badge" ng-if="newMessage.recipients.length">{{ newMessage.recipients.length }}</div>
+        </i>
+    </div>
+
+    <div style="position:relative;" ng-if="conversation" class="unflex clickable" ng-click="attachFile()" title="Attach a file to this message">
+        <i class="fa fa-border spacer-icon general-icon fa-paperclip clickable">
+            <div style="position:absolute;" class="badge" ng-if="newMessage.attachments.length">{{ newMessage.attachments.length }}</div>
+        </i>
+    </div>
+
+    <div class="full-flex conversation-title text-single-line text-centered">
+        {{ conversation.title }}
+    </div>
+
+    <div class="unflex clickable" ng-if="conversation" ng-click="leaveConversation()" title="Leave this conversation">
+        <i class="fa fa-border spacer-icon general-icon fa-sign-out clickable"></i>
+    </div>
+
+</div>
+
+<div class="messages-container full-flex flex-horizontal no-scroll">
+    <div class="messages auto-scroll full-flex">
+        <div ng-if="error" class="message flex-horizontal mood-system">
+            <div class="full-flex no-scroll">
+                <div class="message-text full-flex ">{{  error }}</div>
+            </div>
+        </div>
+
+        <div class="message flex-horizontal mood-{{ :: message.mood}} animate-fade-down"
+             ng-repeat="message in conversation.messages"
+             style="{{ :: message.style }}"
+             ng-class=":: {'owner': message.from == currentUser, 'whisper': message.to.length}">
+
+            <div class="message-sender" ng-show=":: (message.mood != 'system') && (!message.ours)">
+                <img class="img-circle user-avatar" ng-src="{{ :: message.from.avatar }}">
+            </div>
+
+            <div class="full-flex no-scroll">
+                <div class="message-text full-flex ">{{  message.text }}</div>
+                <div ng-if="message.attachments" class="attachments">
+                    <image-attachment ng-if="message.attachedImage" url="{{ :: message.attachedImage }}"></image-attachment>
+                    <audio-attachment ng-if="message.attachedAudio" url="{{ :: message.attachedAudio }}"></audio-attachment>
+                </div>
+            </div>
+
+            <div class="message-sender" ng-show=":: (message.mood != 'system') && (message.ours)">
+                <img class="img-circle user-avatar" ng-src="{{ :: message.from.avatar }}">
+            </div>
+        </div>
+
+        <div class="float-bottom-left typing-indicators flex-horizontal">
+            <div class="unflex typing-indicator animate-fade-up"
+                 ng-repeat="participant in conversation.participants"
+                 ng-if="(participant.user) && (participant.typingStatus.typing)"                     >
+                {{ participant.user.nickname}}
+                <i class="fa fa-ellipsis-h"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="message-composer unflex flex-horizontal" ng-class="{'multiline': multiline}">
+
+    <div class="message-send unflex">
+        <img class="avatar-thumb-lg clickable" ng-src="{{ currentUser.avatar }}" ng-click="selectMood()">
+    </div>
+
+    <div class="full-flex">
+        <textarea auto-focus ng-keydown="keyDown($event)" ng-model="newMessage.text" rows="{{ multiline ? 3 : 1 }}"></textarea>
+    </div>
+
+    <div class="unflex clickable" ng-click="postMessage()">
+        <i class="fa send-button fa-border general-icon clickable send-button"
+           ng-class="{'fa-send': !newMessage.recipients.length, 'fa-user-secret': newMessage.recipients.length}">
+
+        </i>
+    </div>
+
+</div>

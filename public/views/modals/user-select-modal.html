@@ -1,0 +1,42 @@
+<div class="modal-header flex-horizontal {{ cssClass }}">
+    <div class="modal-title full-flex">
+        {{ title }}
+    </div>
+</div>
+
+<div class="modal-body flex-vertical {{ cssClass }}">
+    <div class="options-modal-prompt">
+        {{ prompt }}
+    </div>
+
+    <user-select
+            class="flex-vertical full-flex"
+            allow-self="{{ allowSelf ? 'true' : 'false'}}"
+            allowed-users="allowedUsers"
+            disallowed-users="disallowedUsers"
+            selection="selectedUsers"
+            multi-select="{{ multiSelect ? 'true' : 'false'}}"
+    >
+
+    </user-select>
+
+    <div class="error-block options-modal-prompt validation-error" ng-if="errorMessage">
+        <br />
+        {{ errorMessage }}
+    </div>
+
+    <div ng-if="!working" class="unflex flex-horizontal nudge-down-more">
+        <div class="full-flex"></div>
+
+        <div class="clickable option-button" ng-click="ok()">
+            <i class="fa fa-lg fa-check"></i>
+            OK
+        </div>
+
+        <div class="clickable option-button" ng-click="cancel()">
+            <i class="fa fa-lg fa-close"></i>
+            Cancel
+        </div>
+    </div>
+
+</div>

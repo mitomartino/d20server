@@ -1,0 +1,261 @@
+#!/usr/bin/env node
+
+/**
+ * **********************************************************************************************************
+ * bin/www
+ *
+ * author: William Martino
+ *
+ * Main application definition
+ *
+ * **********************************************************************************************************
+ */
+
+// ----------------------------------------------------------------------------------------------------------
+// dependencies
+// ----------------------------------------------------------------------------------------------------------
+
+var app          = require('../app');
+var debug        = require('debug')('d20server:server');
+var http         = require('http');
+var auth         = require('../api/user/auth');
+var cookieParser = require('cookie-parser');
+var session      = require('express-session');
+var passport     = require('passport');
+var path         = require('path');
+var connectDb    = require('../api/database/connection');
+
+// ----------------------------------------------------------------------------------------------------------
+// Session / auth initialization
+// ----------------------------------------------------------------------------------------------------------
+
+var secret = 'C116D5E1A591AF49971574AA2AC704E0';
+
+// set up our session and integrate passport so that we can track the user
+// over multiple requests
+var appSession = session(
+{
+    secret:            secret,
+    maxAge:            null,
+    resave:            false,
+    saveUninitialized: true
+});
+
+app.use(cookieParser(secret));
+app.use(appSession);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// initialize authentication for the application
+auth.initialize(app);
+
+// ----------------------------------------------------------------------------------------------------------
+// HTTP server
+// ----------------------------------------------------------------------------------------------------------
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+var server = http.createServer(app);
+
+// ----------------------------------------------------------------------------------------------------------
+// Socket.io
+// ----------------------------------------------------------------------------------------------------------
+
+var io            = require('socket.io')(server);
+var sharedSession = require("express-socket.io-session");
+
+io.use(sharedSession(appSession));
+
+var ioApi = require("../api/socket/socket");
+
+ioApi.init(io, auth);
+
+// ----------------------------------------------------------------------------------------------------------
+// Routes
+// ----------------------------------------------------------------------------------------------------------
+
+var routes       = require('../routes/index');
+var services     = require('../services/main');
+
+app.use('/upload', function(req, res, next)
+{
+    var parts = req.originalUrl.split('/');
+    var rep   = 'unknown';
+
+    if (parts.length >= 2)
+    {
+        rep = parts[parts.length - 2];
+    }
+
+    res.redirect('/images/not-found/' + rep + '.png');
+});
+
+// backend services
+app.use('/services', services(io));
+
+// router for index/landing page
+app.use('/', routes);
+
+// ----------------------------------------------------------------------------------------------------------
+// error handlers
+// ----------------------------------------------------------------------------------------------------------
+
+/**
+ * catch 404 and forward to error handler
+ */
+app.use(function(req, res, next)
+{
+    var err = new Error('Not Found');
+
+    err.status = 404;
+    next(err);
+
+});
+
+// ----------------------------------------------------------------------------------------------------------
+
+/**
+ * Dev error handler: prints stack trace
+ */
+if (app.get('env') === 'development')
+{
+    app.use(function(err, req, res, next)
+    {
+        res.status(err.status || 500);
+
+        res.render('error',
+        {
+            appInfo: {},
+            message: err.message,
+            error:   err
+        });
+    });
+}
+
+// ----------------------------------------------------------------------------------------------------------
+
+/**
+ * Production error handler
+ *
+ * no stacktraces leaked to user
+ */
+app.use(function(err, req, res, next)
+{
+    res.status(err.status || 500);
+
+    res.render('error',
+    {
+        appInfo: {},
+        message: err.message,
+        error:   {}
+    });
+});
+
+// ----------------------------------------------------------------------------------------------------------
+// Startup
+// ----------------------------------------------------------------------------------------------------------
+
+connectDb(function(err, connection)
+{
+    if (err)
+    {
+        console.log("Exiting with error: " + err);
+        process.exit(0);
+
+        return;
+    }
+
+    app.locals.db = connection;
+
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+
+    var postman = require('../api/mailer/postman');
+
+    postman.send(
+    {
+
+    });
+
+});
+
+// ----------------------------------------------------------------------------------------------------------
+// Helper functions
+// ----------------------------------------------------------------------------------------------------------
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+function normalizePort(val)
+{
+    var port = parseInt(val, 10);
+
+    if (isNaN(port))
+    {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0)
+    {
+        // port number
+        return port;
+    }
+
+    return false;
+}
+
+// ----------------------------------------------------------------------------------------------------------
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+function onError(error)
+{
+    if (error.syscall !== 'listen')
+    {
+        throw error;
+    }
+
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code)
+    {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+
+        default:
+            throw error;
+    }
+}
+
+// ----------------------------------------------------------------------------------------------------------
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+function onListening()
+{
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+
+    debug('Listening on ' + bind);
+}
+
+// ----------------------------------------------------------------------------------------------------------
+// End bin/www
+// ----------------------------------------------------------------------------------------------------------

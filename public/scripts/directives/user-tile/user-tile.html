@@ -1,0 +1,167 @@
+<div ng-class="{'detailed': user.showingDetails, 'banned': user.isBanned}"
+     ng-if="user"
+     class="flex-vertical" style="height:100%;">
+
+    <div class="title-bar unflex flex-horizontal" ng-class="{'admin': user.isAdmin}" ng-if="hasBorder">
+
+        <div class="unflex nudge-right">
+            <span ng-if="!user.isBanned">
+                <i class="fa fa-star" ng-if="user.isAdmin"></i>
+                <i class="fa fa-user" ng-if="!user.isAdmin"></i>
+            </span>
+            <i class="fa fa-ban"  ng-if="user.isBanned"></i>
+        </div>
+
+        <div class="full-flex">
+            {{ user.nickname }}
+        </div>
+
+    </div>
+
+    <div class="user-tile-body full-flex flex-horizontal">
+
+        <div class="left-side-panel flex-vertical unflex">
+            <div class="user-icon-and-status unflex flex-horizontal">
+                <div class="user-avatar unflex">
+                    <img ng-src="{{ user.avatar }}">
+                </div>
+
+                <div class="user-info full-flex flex-vertical nudge-right-more">
+                    <div class="info-line text-single-line">
+                        {{ user.status.what ? user.status.what : 'Status unknown' }}
+                    </div>
+
+                    <div class="info-line text-single-line">
+                        <br />
+                    </div>
+
+                    <div class="info-line text-single-line">
+                        Online: {{ user.status.online ? 'Yes' : 'No '}}
+                    </div>
+                    <div class="info-line text-single-line">
+                        Badges: {{ user.numberOfBadges }}
+                    </div>
+
+                    <div class="full-flex"></div>
+
+                    <div class="flex-horizontal" ng-if="!readOnly">
+                        <div class="unflex clickable" ng-if="hasBorder" ng-click="toggleDetails(user)" title="Edit this user">
+                            <i class="fa fa-pencil fa-2x fa-border general-icon clickable"></i>
+                        </div>
+                        <div class="unflex flex-horizontal" show-if-authorized="manage-users" authorize-on="user._id">
+                            <div class="unflex clickable"
+                                 ng-click="deleteUser(user)"
+                                 title="Delete this user"
+                                 ng-if="(!user.isAdmin) && (user != currentUser)">
+                                <i class="fa fa-close fa-2x fa-border alert-icon clickable"></i>
+                            </div>
+                            <div class="unflex clickable"
+                                 ng-click="banUser(user)"
+                                 title="Temporarily ban this user or lift current ban"
+                                 ng-if="(!user.isAdmin) && (user != currentUser)">
+                                <i class="fa fa-ban fa-2x fa-border alert-icon toggle clickable"
+                                   ng-class="{'selected': user.isBanned}">
+
+                                </i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-permissions-panel nudge-down-more" ng-if="user.hasDetails">
+                <div class="small-title">
+                    Global Permissions:
+                </div>
+                <user-permissions class="unflex" context="global" user="user"></user-permissions>
+            </div>
+
+            <div class="user-file-space-panel nudge-down-more" ng-if="user.hasDetails">
+                <div ng-if="user.files" class="collection-snapshot">
+                    <div class="small-title">
+                        User File Space:
+                    </div>
+
+                    <span class="bytes-remaining">{{ bytesRemaining | diskspace }} remaining</span>
+
+                    <uib-progressbar max="maxPercent" value="percentDiskFree" type="{{ percentDiskFreeClass }}">
+                        {{ percentDiskFree }}%
+                    </uib-progressbar>
+                </div>
+
+                <div ng-if="!user.files" class="flex-vertical">
+                    <div show-if-authorized="manage resources" class="full-flex flex-vertical" authorize-on="{{ user._id }}">
+                        <div class="small-title">
+                            User File Space:
+                        </div>
+
+                        <button type="button" class="btn btn-primary clickable full-flex margin5" ng-click="makeFileCollection()">
+                            Create Drawers
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="user-about nudge-down-more auto-scroll">
+
+                <div class="small-title">
+                    About Me:
+                        <span ng-if="user.pronounsLabel">
+                            ({{ user.pronounsLabel }})
+                        </span>
+                </div>
+
+                <div class="content-box">
+                    {{ (user.about) || (user.nickname + ' has nothing to say') }}
+                </div>
+
+            </div>
+
+            <div class="user-tab-buttons nudge-down-more unflex flex-vertical" ng-if="user.showingDetails">
+                <div class="small-title">
+                    Actions
+                </div>
+                <button type="button"
+                        ng-repeat="viewButton in views"
+                        class="btn btn-primary clickable unflex margin5 nudge-down"
+                        ng-model="view.name"
+                        ng-show="viewButton.visible"
+                        uib-btn-radio="'{{ viewButton.name }}'">
+                    <i class="fa fa-lg {{ viewButton.icon }} left-icon nudge-left-more"></i> {{ viewButton.title }}
+                </button>
+            </div>
+
+            <div class="full-flex"></div>
+        </div>
+
+        <div class="right-side-panel full-flex flex-vertical" style="position:relative;">
+            <collection-browser class="full-flex flex-vertical" ng-if="view.name=='files'" collection="user._id">
+
+            </collection-browser>
+
+            <collection-file-chooser
+                class="full-flex flex-vertical"
+                ng-if="view.name=='avatar'"
+                collection="avatarInfo.collection"
+                drawer="avatarInfo.drawer"
+                file="avatarInfo.file"
+                allowed-drawers="['avatars', 'portraits']"
+                user-collection="user._id"
+                system-collection="'system'"
+                select-button-text="Select Avatar"
+                on-select="setAvatar">
+
+            </collection-file-chooser>
+
+            <chat-panel
+                    class="full-flex flex-vertical"
+                    with="[user]"
+                    ng-if="view.name=='chat'">
+
+            </chat-panel>
+
+        </div>
+
+    </div>
+</div>

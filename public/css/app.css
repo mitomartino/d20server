@@ -1,0 +1,1931 @@
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * app.css
+ *
+ * Main stylesheet for the application
+ *
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * flex/layout control
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.flex-vertical
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-horizontal
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.full-flex
+{
+    flex-shrink:  1;
+    flex-grow:    1;
+}
+
+.unflex
+{
+    flex-shrink: 0;
+    flex-grow:   0;
+}
+
+.no-scroll
+{
+	overflow: hidden;
+}
+
+.auto-scroll
+{
+    overflow-y: auto;
+}
+
+.fit-content
+{
+    display: inline-block;
+}
+
+.fill-width
+{
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.absolute-anchor
+{
+	position: relative;
+}
+
+.overlay
+{
+	position: absolute;
+	top:      0px;
+	left:     0px;
+	width:    100%;
+	height:   100%;
+}
+
+.top-left
+{
+	top:    0px;
+	left:   0px;
+	width:  auto;
+	height: auto;
+}
+
+.top-right
+{
+	width:  auto;
+	height: auto;
+	left:   auto;
+	top:    0px;
+	right:  0px;
+}
+
+.float-bottom-left
+{
+	position: absolute;
+	left:     0;
+	bottom:   0;
+}
+
+body.flex-vertical.ng-scope,
+body.flex-horizontal.ng-scope,
+.btn
+{
+	font-size: 0.75vmax;
+}
+
+.btn
+{
+	padding:       0.5vmin 1vmin;
+	border-radius: 0.5vmin;
+	height:        3.5vmin;
+	line-height:   2vmin;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Margins/padding/spacing
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.margin5
+{
+    margin: 0.25vmax;
+}
+
+.margin10
+{
+    margin: 0.5vmax;
+}
+
+.padding5
+{
+	padding: 0.25vmax;
+}
+
+.padding10
+{
+	padding: 0.5vmax;
+}
+
+.vspace5
+{
+    margin-top: 0.5vmin;
+}
+
+.vspace10
+{
+    margin-top: 1vmin;
+}
+
+.nudge-left
+{
+    margin-right: 0.25vmax;
+}
+
+.nudge-left-more
+{
+	margin-right: 0.5vmax;
+}
+
+.nudge-left-double
+{
+	margin-right: 1vmax;
+}
+
+.nudge-right
+{
+    margin-left: 0.25vmax;
+}
+
+.nudge-right-more
+{
+	margin-left: 0.5vmax;
+}
+
+.nudge-right-double
+{
+	margin-left: 1vmax;
+}
+
+.nudge-down
+{
+    margin-top: 0.5vmin;
+}
+
+.nudge-down-more
+{
+	margin-top: 1vmin;
+}
+
+.nudge-down-double
+{
+	margin-top: 2vmin;
+}
+
+.evenly-distribute
+{
+    display:         flex;
+    flex-direction:  row;
+    justify-content: space-between;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Text styles
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.text-single-line
+{
+    overflow:      hidden;
+    text-overflow: ellipsis;
+    white-space:   nowrap;
+}
+
+.text-centered
+{
+    text-align: center;
+}
+
+.text-left
+{
+    text-align: left;
+}
+
+.full-centered-container
+{
+    display:         flex;
+    flex-direction:  column;
+    justify-content: center;
+    text-align:      center;
+}
+
+.no-select
+{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.small-title
+{
+    font-size:   1.2em;
+    font-weight: bold;
+    margin-top:  1.0vmin;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Icons
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.left-icon
+{
+    float:       left;
+    line-height: 2vmin;
+}
+
+.spacer-icon
+{
+    margin: 5px;
+}
+
+.disabled-icon
+{
+    color: gray;
+}
+
+.general-icon
+{
+	color: #2b669a;
+}
+
+.highlight
+{
+	-webkit-transition: color 200ms ease-in;
+	transition:         color 200ms ease-in;
+
+}
+
+.highlight:hover
+{
+	color:       #2b669a;
+	font-weight: bold;
+}
+
+.general-icon.highlight:hover
+{
+	color:       #3e8ec0;
+	font-weight: bold;
+}
+
+.general-icon.fa-border
+{
+	background-color: white;
+}
+
+.general-icon.selected
+{
+	background-color: #2b669a;
+	color: white;
+}
+
+.invert-general-icon
+{
+	background-color: #2b669a;
+	color: white;
+}
+
+.success-icon
+{
+	color: green;
+}
+
+.success-icon.selected
+{
+	background-color: green;
+	color: white;
+}
+
+.invert-success-icon
+{
+	background-color: green;
+	color: white;
+}
+
+.alert-icon
+{
+    color: red;
+}
+
+.alert-icon.fa-border
+{
+	background-color: white;
+}
+
+.alert-icon.selected
+{
+    background-color: red;
+    color: white;
+}
+
+.fa-ban
+{
+    color: red;
+}
+
+.loading-block
+{
+	margin-left:  auto;
+	margin-right: auto;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Images
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.image128
+{
+    width:  12.8vmin;
+    height: 12.8vmin;
+}
+
+.image48
+{
+    width:  4.8vmin;
+    height: 4.8vmin;
+}
+
+.image32
+{
+    width:  3.2vmin;
+    height: 3.2vmin;
+}
+
+.image24
+{
+    width:  2.4vmin;
+    height: 2.4vmin;
+}
+
+
+image-chooser.avatar, image-chooser.avatar > div:first-child
+{
+    background-color: black;
+    margin-bottom:    5px;
+}
+
+image-chooser.avatar .slide-image
+{
+	margin:          auto;
+	width:           14vmax;
+	height:          30.5vmin;
+	background-size: cover;
+	background:      white no-repeat center;
+}
+
+image-chooser.avatar .carousel-inner
+{
+	margin: auto;
+	width:  14vmax;
+	height: 30.5vmin;
+}
+
+image-chooser.avatar .carousel-panel
+{
+	margin:   auto;
+	width:    14vmax;
+	height:   30.5vmin;
+	position: relative;
+}
+
+image-chooser .carousel-prompt
+{
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,.6);
+}
+
+image-chooser .carousel-panel .carousel-caption
+{
+    background-color: rgba(0, 0, 0, 0.6);
+    width:            100%;
+    height:           100%;
+    top:              0px;
+    left:             0px;
+}
+
+image-chooser .btn-info
+{
+    width: 100%;
+}
+
+image-chooser a:hover
+{
+    text-decoration: underline;
+    cursor:          pointer;
+    outline:         0px;
+    color:           #74B8F6;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Tabs
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.tabs
+{
+	text-align:     center;
+	font-size:      1.4em;
+	font-weight:    bold;
+	border-bottom:  1px solid rgb(169, 169, 169);
+	padding-bottom: 1.0vmin;
+	margin-bottom:  1.5vmin;
+}
+
+.tabs div
+{
+    display: inline-block;
+}
+
+.tabs div span:hover
+{
+    color:              #20486F;
+    text-decoration:    underline;
+    background-color:   rgba(200, 200, 200, 0.6);
+}
+
+.tabs div.active
+{
+    color:                 #20486F;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Search-box
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.search-box
+{
+    font-size:        2vmin;
+    background-color: #20486F;
+    padding:          .4vmin;
+    padding-left:     1.5vmin;
+    padding-right:    1.5vmin;
+    border-radius:    2vmin;
+}
+
+.search-box i
+{
+    color: white;
+}
+
+.search-box input[type=text]
+{
+    box-sizing:       border-box;
+    width:            100%;
+    background-color: white;
+}
+
+.validation-error
+{
+    font-style:  italic;
+    color:       red;
+    font-size:   0.8em;
+    margin-bottom: 5px;
+}
+
+.action-row
+{
+    margin-top:      20px;
+    padding-left:    15px;
+    padding-right:   15px;
+    text-align:      center;
+    margin-bottom:   1.0vmin;
+    justify-content: space-between;
+}
+
+.action-row button:not(:last-child)
+{
+    margin-right: 15px;
+}
+
+.action-row .loading-block
+{
+    color:        #20486F;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Buttons
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.info-button
+{
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Forms
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.full-flex > input[type=text],
+.full-flex > input[type=password],
+.full-flex > select,
+.full-flex > textarea
+{
+	box-sizing: border-box;
+	width:      100%;
+	color:      black;
+}
+
+.form-line
+{
+    font-size: 1.3em;
+}
+
+.form-line label
+{
+    width:      150px;
+    text-align: left;
+}
+
+.form-line > div
+{
+    margin: 5px;
+}
+
+.full-flex > textarea
+{
+	box-sizing: border-box;
+	width:      100%;
+	height:     100%;
+}
+
+.form-line input[type=text], .form-line input[type=password], .form-line select, .form-line textarea
+{
+    box-sizing: border-box;
+    width:      100%;
+    color:      black;
+}
+
+.form-line > .form-messages
+{
+    margin-top:    20px;
+    margin-bottom: 5px;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Bootstrap
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.nav, .pagination, .carousel, .panel-title a
+{
+    cursor: pointer;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Modal dialogs
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.modal-content
+{
+    display:        flex;
+    flex-direction: column;
+}
+
+.modal-header
+{
+    background-color:        #20486F;
+    border-top-left-radius:  6px;
+    border-top-right-radius: 6px;
+    border:                  1px solid white;
+    padding:                 5px;
+}
+
+.modal-header .modal-title
+{
+    font-weight:             bold;
+    font-size:               2.5vmin;
+    color:                   white;
+    border-top-left-radius:  6px;
+    border-top-right-radius: 6px;
+    text-align:              center;
+    padding:                 0px;
+}
+
+.options-modal-prompt
+{
+    font-size:     1.5em;
+    margin-bottom: 30px;
+}
+
+.option-buttons
+{
+    display: inline-block;
+    margin: auto;
+}
+
+.option-button
+{
+	text-align:         center;
+    font-size:          1.2em;
+    float:              left;
+    margin:             5px;
+    color:              white;
+    background-color:   #3e8ec0;
+    border:             2px solid black;
+    border-radius:      20px;
+    padding-top:        5px;
+    padding-bottom:     5px;
+    padding-left:       15px;
+    padding-right:      15px;
+    font-weight:        bold;
+    -webkit-transition: background-color 200ms ease-in, color 200ms ease-in, opacity 100ms ease-in;
+    transition:         background-color 200ms ease-in, color 200ms ease-in, opacity 100ms ease-in;
+}
+
+.option-button i
+{
+	vertical-align: initial;
+}
+
+.option-button a
+{
+	color:            white;
+	text-decoration:  none;
+}
+
+.option-button.disabled
+{
+	background-color: #959595;
+	color:            #e1e1e1;
+	border:           2px solid #5a5a5a;
+}
+
+.option-button-fixed
+{
+    width: 125px;
+}
+
+.option-button:hover:not(.disabled)
+{
+    background-color: white;
+    color:            #3e8ec0;
+}
+
+.option-button:hover:not(.disabled) a
+{
+	color:            #3e8ec0;
+}
+
+.modal-body
+{
+	padding: 1.6vmin;
+}
+
+.modal-body collection-browser
+{
+    height: 60vmin;
+}
+
+.bottom-buttons
+{
+	margin-top:  1.0vmin;
+	padding-top: 1.0vmin;
+	border-top:  1px solid #e2e2e2;
+}
+
+.modal-body.import-into-collection-modal .option-button
+{
+	width: 9vmax;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Views
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.top-view
+{
+	overflow:    hidden;
+	padding:     1.0vmin;
+	padding-top: 2.0vmin;
+	position:    absolute;
+	width:       100%;
+	height:      100%;
+}
+
+.top-view.ng-enter
+{
+	position: absolute;
+	overflow:  hidden;
+	animation: fadeIn 0.6s;
+}
+
+.top-view.ng-leave,
+.top-view.ng-enter.active
+{
+	position: absolute;
+	overflow: hidden;
+	animation: fadeOut 0.6s;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Interaction
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.clickable
+{
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.disabled
+{
+    cursor: not-allowed;
+}
+
+.selectable
+{
+	-webkit-transition: background-color 250ms ease-in, color 250ms ease-in;
+	transition:         background-color 250ms ease-in, color 250ms ease-in;
+}
+
+.selectable:hover
+{
+	background-color:   #67c8e8;
+	color:              white;
+	font-weight:        bold;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Drag-and-drop
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.active-drop-target
+{
+    outline: 2px solid blue;
+}
+
+.active-drop-target *
+{
+    pointer-events: none;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Frame page
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+html, body
+{
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.main-header
+{
+    background-color: green;
+	height:           7vh;
+	line-height:      7vh;
+}
+
+.main-footer
+{
+	padding:     0.2vh;
+	height:      4vh;
+	line-height: 4vh;
+    border-top:  1px solid gray;
+	font-size:   2.2vh;
+}
+
+.main-view
+{
+    background-color: blue;
+    position:         relative;
+    overflow-x:       hidden;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Sidebar menus
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+sidebar-menu
+{
+    position:         absolute;
+    top:              0px;
+    bottom:           0px;
+    display:          flex;
+    flex-direction:   column;
+    z-index:          99;
+}
+
+sidebar-menu .content
+{
+    flex-shrink:      1;
+    flex-grow:        1;
+    padding:          1vmax;
+    padding-top:      1.5vh;
+	width:            20vw;
+	height:           100%;
+	overflow:         hidden;
+}
+
+sidebar-menu.left
+{
+    left:             0px;
+}
+
+sidebar-menu.right
+{
+    right:            0px;
+}
+
+sidebar-menu.left .content.ng-enter
+{
+    animation: slideInLeft 0.6s;
+}
+
+sidebar-menu.left .content.ng-leave
+{
+    animation: slideOutLeft 0.6s;
+}
+
+sidebar-menu.right .content.ng-enter
+{
+    animation: slideInRight 0.6s;
+}
+
+sidebar-menu.right .content.ng-leave
+{
+    animation: slideOutRight 0.6s;
+}
+
+sidebar-menu .menu-title
+{
+    font-size:       2.8vh;
+    font-weight:     bold;
+    text-align:      center;
+    text-decoration: underline;
+    margin-bottom:   5vh;
+}
+
+sidebar-menu .menu-l1
+{
+    margin-left: 1.0vmax;
+}
+
+sidebar-menu .menu-l1.menu-item
+{
+    margin-bottom: 3vh;
+}
+
+sidebar-menu .menu-l2
+{
+	margin-left: 5vh;
+}
+
+sidebar-menu .menu-l1 .menu-icon
+{
+    width:        5vh;
+    height:       5vh;
+    margin-right: 1.2vmax;
+}
+
+sidebar-menu .menu-l1 .menu-icon img
+{
+    width:        5vh;
+    height:       5vh;
+}
+
+sidebar-menu .menu-l1 .menu-text
+{
+    font-size:   3vh;
+    font-weight: bold;
+	line-height: 5vh;
+}
+
+sidebar-menu .menu-item
+{
+    margin-bottom: 0.8vh;
+}
+
+sidebar-menu .menu-l2 .menu-icon
+{
+    width:        3.2vh;
+    height:       3.2vh;
+    margin-right: 0.2vh;
+}
+
+sidebar-menu .menu-l2 .menu-icon img
+{
+	width:        3.2vh;
+	height:       3.2vh;
+}
+
+sidebar-menu .menu-l2 .menu-text
+{
+	font-size:   2.2vh;
+	font-weight: bold;
+	line-height: 3.2vh;
+}
+
+sidebar-menu .sub-menu
+{
+    padding-top:    1.0vmin;
+    padding-bottom: 1.5vmin;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Copyright
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.attribution ul li
+{
+    list-style-type: none;
+    margin-bottom:   5px;
+}
+
+.attribution ul li:hover
+{
+    font-weight: bold;
+}
+
+.copyright
+{
+    font-style: italic;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * User tiles
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.admin-users
+{
+    position:   relative;
+}
+
+.user-tiles
+{
+    margin-top: 9vmin;
+    text-align: center;
+}
+
+user-tile
+{
+    display:          inline-block;
+    border-radius:    1.8vmin;
+    margin:           1.0vmin;
+    width:            16vmax;
+    height:           16vmax;
+    text-align:       left;
+	box-shadow:       5px 5px 5px black;
+}
+
+user-tile.borderless
+{
+	flex:       1 1;
+	width:      initial;
+	box-shadow: none;
+}
+
+user-tile > div
+{
+	background-color:   white;
+	-webkit-transition: background-color 200ms ease-in, color 200ms ease-in, opacity 100ms ease-in;
+	transition:         background-color 200ms ease-in, color 200ms ease-in, opacity 100ms ease-in;
+	border-radius:      1vmin;
+}
+
+user-tile.borderless > div
+{
+	flex: 1 1;
+}
+
+user-tile > div.banned
+{
+    background-color: rgba(255, 255, 255, 0.4)
+}
+
+user-tile.detailed > div.banned
+{
+    background-color: white;
+}
+
+user-tile .title-bar
+{
+	color:            white;
+	font-weight:      bold;
+	text-align:       center;
+	background-color: #20486f;
+	font-size:        1.8vmin;
+	border-radius:    1vmin 1vmin 0 0;
+}
+
+user-tile .banned .title-bar
+{
+    background-color: #3A0C07;
+}
+
+user-tile .title-bar.admin
+{
+    color: gold;
+}
+
+user-tile .user-tile-body
+{
+    padding:       4px;
+    overflow:      hidden;
+}
+
+user-tile .user-avatar
+{
+	outline: 2px solid black;
+	width:   12.8vmin;
+	height:  12.8vmin;
+}
+
+user-tile .user-avatar.img-circle
+{
+	outline: none;
+}
+
+user-tile .user-avatar img
+{
+    width:  12.8vmin;
+    height: 12.8vmin;
+}
+
+user-tile .info-line
+{
+    flex-grow:   0;
+    flex-shrink: 0;
+}
+
+user-tile .user-about
+{
+	height:      10.0vmin;
+	flex-shrink: 0;
+}
+
+user-tile .user-activity
+{
+    border-top: 1px solid #4c4c4c;
+}
+
+user-tile.detailed
+{
+
+}
+
+user-tile .title-bar .fa-star
+{
+    color: gold;
+}
+
+
+user-tile .left-side-panel
+{
+    width: 16vmax;
+}
+
+user-tile .right-side-panel
+{
+    border-left: 2px solid rgba(0, 0, 0, 0.14)
+}
+
+user-permissions
+{
+    display: inline-block;
+    padding: 3px;
+}
+
+user-permissions div
+{
+    overflow: hidden;
+}
+
+user-permissions i:not(.clickable)
+{
+    cursor: not-allowed;
+}
+
+user-tile .collection-snapshot
+{
+    padding-left:  0.5vmax;
+    padding-right: 0.5vmax;
+}
+
+user-tile .content-box
+{
+    padding-left:  0.5vmax;
+    padding-right: 0.5vmax;
+}
+
+user-tile .user-tab-buttons
+{
+    border-top: 1px solid #d3d3d3;
+    margin-top: 3.5vmin;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Hover animations for icons
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+i.fa-border.clickable
+{
+    -webkit-transition: background-color 200ms ease-in, color 200ms ease-in, opacity 100ms ease-in;
+    transition:         background-color 200ms ease-in, color 200ms ease-in, opacity 100ms ease-in;
+}
+
+i.fa-border.clickable.general-icon.toggle:hover
+{
+	color:            white;
+	background-color: #2b669a;
+}
+
+i.fa-border.clickable.general-icon:hover
+{
+	color:            white;
+	background-color: #2b669a;
+}
+
+i.fa-border.clickable.general-icon.selected.toggle:hover
+{
+    background-color: white;
+    color:            gray;
+}
+
+i.fa-border.clickable.alert-icon:hover
+{
+    color:            white;
+    background-color: red;
+}
+
+i.fa-border.clickable.disabled-icon:hover
+{
+    color:            white;
+    background-color: #2b669a;
+}
+
+i.fa-border.clickable.invert-general-icon:hover
+{
+    background-color: white;
+    color:            #2b669a;
+}
+
+.hide-not-hovered .fa-border
+{
+    opacity: 0;
+}
+
+.hide-not-hovered:hover .fa-border
+{
+    opacity: 1;
+}
+
+.backdrop-hover
+{
+	-webkit-transition: background-color 200ms ease-in, color 200ms ease-in, padding 100ms ease-in;
+	transition:         background-color 200ms ease-in, color 200ms ease-in, padding 100ms ease-in;
+}
+
+.backdrop-hover:hover
+{
+	background: rgba(0, 0, 0, 0.4);
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * File collection browser
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+collection-browser .collection-item
+{
+    padding-left:       5px;
+    padding-top:        2px;
+    padding-bottom:     2px;
+    font-size:          2.0vmin;
+    -webkit-transition: background-color 200ms ease-in, color 200ms ease-in, padding 100ms ease-in;
+    transition:         background-color 200ms ease-in, color 200ms ease-in, padding 100ms ease-in;
+}
+
+collection-browser .collection-content-list
+{
+    padding-top:   15px;
+    padding-left:  15px;
+    padding-right: 15px;
+}
+
+collection-browser .collection-item:hover, collection-browser .collection-item.selected
+{
+    padding-left:     15px;
+    font-weight:      bold;
+    outline:          1px solid #6ebbff;
+    background-color: #b5e1ff;
+}
+
+collection-browser .collection-item .icon
+{
+    width: 2.4vmax;
+}
+
+collection-browser .preview-pane
+{
+    position:         relative;
+    margin-left:      5px;
+    background-color: black;
+    color:            white;
+    border-bottom:    4px solid silver;
+}
+
+collection-browser .preview-pane .overlay
+{
+    position: absolute;
+    top:      0px;
+    left:     0px;
+    width:    100%;
+    height:   100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+collection-browser .image-preview
+{
+    background-size:     contain;
+    background-position: center;
+    background-repeat:   no-repeat;
+    opacity:             0;
+    -webkit-transition:  background-color 200ms ease-in, color 200ms ease-in, opacity 500ms ease-in;
+    transition:          background-color 200ms ease-in, color 200ms ease-in, opacity 500ms ease-in;
+}
+
+collection-browser .image-preview.selected
+{
+    opacity: 1.0;
+}
+
+collection-browser .image-preview.selected.ng-leave-active
+{
+    opacity: 0.0;
+}
+
+collection-browser .image-preview.selected.ng-enter
+{
+    opacity: 0.0;
+}
+
+collection-browser .image-preview.selected.ng-enter-active
+{
+    opacity: 1.0;
+}
+
+collection-browser .collection-item .option-icons
+{
+    outline:          2px solid #B7B7E7;
+}
+
+collection-browser .collection-item .option-icons i:not(.selected)
+{
+    background-color: white;
+}
+
+collection-browser .overlay
+{
+    font-size: 1.5vmax;
+}
+
+collection-browser .button-panel
+{
+    display:      inline-block;
+    margin-left:  auto;
+    margin-right: auto;
+}
+
+collection-browser .audio-preview-icon
+{
+    opacity:             0.8;
+    -webkit-transition:  background-color 200ms ease-in, color 200ms ease-in, opacity 500ms ease-in;
+    transition:          background-color 200ms ease-in, color 200ms ease-in, opacity 500ms ease-in;
+}
+
+collection-browser .audio-preview-icon.disabled
+{
+    color: gray;
+}
+
+collection-browser .audio-preview-icon:hover:not(.disabled)
+{
+    opacity:             1.0;
+    color:               #b5e1ff;
+    -webkit-transition:  background-color 200ms ease-in, color 200ms ease-in, opacity 500ms ease-in;
+    transition:          background-color 200ms ease-in, color 200ms ease-in, opacity 500ms ease-in;
+}
+
+collection-browser .preview-title
+{
+    color:       white;
+    font-weight: bold;
+    font-size:   1.3em;
+}
+
+collection-browser .preview-title.disabled
+{
+     color:       #333;
+}
+
+collection-browser .audio-time-remaining
+{
+    line-height:  3.0vmin;
+    font-size:    0.8em;
+    font-weight:  normal;
+    font-style:   italic;
+    margin-right: 1.0vmax;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Chat
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.new-chat-modal .heading
+{
+    font-size:    2.4vmin;
+    line-height:  2.4vmin;
+    margin-right: 0.5vmax;
+}
+
+.new-chat-modal .user-select-container
+{
+    margin-top:  2.5vmin;
+}
+
+.new-chat-modal user-select .fa-search
+{
+    line-height:  2.4vmin;
+    margin-right: 0.5vmax;
+}
+
+.new-chat-modal .validation-error
+{
+	font-size: 1.6vmin;
+}
+
+.conversations-container
+{
+	margin-top: 5vmin;
+}
+
+.conversations-container .conversation-preview
+{
+	flex-grow: 1;
+}
+
+.conversation-preview
+{
+	padding:       0.5vmin;
+	padding-left:  0.75vmax;
+	margin:        1.0vmin;
+	border:        4px outset darkgray;
+}
+
+.side-by-side-left .conversation-preview
+{
+	margin:        0;
+	border-left:   0;
+	border-right:  0;
+	border-bottom: 4px outset darkgray;
+	border-top:    2px solid lightgray;
+}
+
+.conversation-preview .small-title
+{
+	font-size:       1.5em;
+	font-weight:     bold;
+	text-decoration: underline;
+}
+
+.conversation-preview .avatar-thumb
+{
+	outline:          2px solid black;
+	margin-right:     0.25vmax;
+	background-color: white;
+}
+
+.conversation-preview .fa-close
+{
+	line-height: 1.8em;
+}
+
+chat-panel
+{
+	overflow: hidden;
+}
+
+chat-panel .add-participant-button
+{
+	border-radius:      5px;
+	background-color:   #2b669a;
+	color:              white;
+	width:              4.8vmin;
+	height:             4.8vmin;
+	border:             2px solid black;
+	-webkit-transition: background-color 200ms ease-in, color 200ms ease-in, opacity 500ms ease-in;
+	transition:         background-color 200ms ease-in, color 200ms ease-in, opacity 500ms ease-in;
+}
+
+chat-panel .add-participant-button:hover
+{
+	color:            #2b669a;
+	background-color: white;
+}
+
+.add-conversation-button
+{
+	background:    linear-gradient(#2e88c4, #075698);
+	color:         white;
+	padding:       0.5vmin;
+	padding-left:  0.75vmax;
+	margin:        1.0vmin;
+	border:        3px solid black;
+	min-with:      16vmax;
+	border-radius: 1.0vmin;
+}
+
+.add-conversation-button .small-title
+{
+	font-size:       1.5em;
+	font-weight:     bold;
+	text-decoration: underline;
+}
+
+chat-panel .messages-container
+{
+	position:         relative;
+}
+
+chat-panel .messages
+{
+	padding-top:      1.5vmin;
+	padding-bottom:   2.5vmin;
+	background-color: black;
+	padding-left:     0.5vmin;
+	padding-right:    0.5vmin;
+}
+
+chat-panel .message
+{
+	font-size:     1.5vmin;
+	padding:       1.0vmin;
+	border-radius: 2.5vmin;
+	margin:        0.3vmin;
+	background:    linear-gradient(#f9d835, #f3961c);
+}
+
+chat-panel .message.mood-system
+{
+	background:    #333333;
+	color:         white;
+	border-radius: 2.5vmin;
+}
+
+chat-panel .message.mood-system .message-text
+{
+	font-style: italic;
+	text-align: center;
+}
+
+chat-panel .message.owner
+{
+	background: linear-gradient(#2e88c4, #075698);
+	color:      white;
+}
+
+chat-panel .message.whisper
+{
+	color:            white;
+	font-weight:      bold;
+	font-style:       italic;
+	font-size:        0.9em;
+	background:       rgba(51, 51, 51, 0.8);
+	border-style:     outset;
+}
+
+chat-panel .mood-shouting
+{
+	font-weight:    bold;
+	font-style:     italic;
+	text-transform: uppercase;
+}
+
+chat-panel .message-sender > img
+{
+	border: 2px solid white;
+	width:  7.2vmin;
+	height: 7.2vmin;
+}
+
+chat-panel .sender-name
+{
+	font-size:   0.8em;
+	font-weight: bold;
+	margin-top:  0.5vmin;
+}
+
+chat-panel .message-composer
+{
+	border-top:   2px solid lightgray;
+	padding-top:  0.2vmin;
+	padding-left: 0.3vmin;
+}
+
+chat-panel .message
+{
+	margin-right: 4.0vmax;
+}
+
+chat-panel .message.mood-system
+{
+	margin-left: 4.0vmax;
+}
+
+chat-panel .message.owner
+{
+	margin-left:  4.0vmax;
+	margin-right: 0px;
+}
+
+chat-panel .message-text
+{
+	white-space:  pre-wrap;
+	margin-left:  0.75vmax;
+	margin-right: 0.75vmax;
+}
+
+chat-panel .user-avatar
+{
+	border: none;
+}
+
+chat-panel .message-composer .send-button
+{
+	font-size: 1.8vmin;
+}
+
+chat-panel .message-composer textarea
+{
+	height: 3vmin;
+}
+
+chat-panel .message-composer.multiline .send-button
+{
+	font-size: 5.0vmin;
+}
+
+chat-panel .message-composer.multiline textarea
+{
+	height: 7.2vmin;
+}
+
+chat-panel .message-composer .avatar-thumb-lg
+{
+	width:  3vmin;
+	height: 3vmin;
+}
+
+chat-panel .message-composer.multiline .avatar-thumb-lg
+{
+	width:  7.2vmin;
+	height: 7.2vmin;
+}
+
+chat-panel .message-options
+{
+	background:    linear-gradient(#2e88c4, #075698);
+	color:         white;
+	border-bottom: 2px solid lightgrey;
+	padding:       0.5vmin;
+	line-height:   1.6em;
+	font-size:     1.6em;
+}
+
+chat-panel .conversation-title
+{
+	font-weight:     bold;
+}
+
+chat-panel .badge
+{
+	position:         absolute;
+	top:              -3px;
+	right:            -7px;
+	background-color: black;
+}
+
+chat-panel .typing-indicator
+{
+	background:     linear-gradient(#f9d835, #f3961c);
+	color:          white;
+	padding-left:   2.0vmin;
+	padding-right:  2.0vmin;
+	border-radius:  1.5vmin;
+	padding-top:    1.0vmin;
+	margin-bottom:  1.0vmin;
+	margin-left:    1.0vmin;
+	font-size:      1.6vmin;
+	line-height:    1.6vmin;
+	padding-bottom: 1.0vmin;
+	font-weight:    bold;
+}
+
+chat-panel .side-by-side-left
+{
+	width:        20vw;
+	overflow-x:   hidden;
+	border-right: 2px solid darkgray;
+}
+
+chat-conversation
+{
+	min-width: 0;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * User selector
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+user-select input[type=text]
+{
+    box-sizing:       border-box;
+    width:            100%;
+    background-color: white;
+	font-size:        2.0vmin;
+}
+
+user-select i.fa-search
+{
+	line-height:  3.5vmin;
+	margin-right: 0.5vmax;
+}
+
+user-select .user-container
+{
+    margin-left:  1.35vmax;
+    margin-right: 0.25vmax;
+    margin-top:   1.0vmin;
+    font-size:    1.4em;
+    color:        #4c4b4b;
+	min-height:   25.0vmin;
+	border:       1px solid lightgrey;
+}
+
+user-select .user
+{
+	padding:            0.3vmin;
+	max-height:         5.8vmin;
+	-webkit-transition: opacity 300ms ease-in, max-height 300ms ease-in;
+	transition:         opacity 300ms ease-in, max-height 300ms ease-in;
+	overflow:           hidden;
+}
+
+user-select .user-container .user:nth-child(even)
+{
+    background-color: #f7f7f7;
+}
+
+user-select .user-container .user:hover
+{
+	opacity:            1.0;
+	background-color:   #67c8e8;
+	color:              white;
+	-webkit-transition: background-color 250ms ease-in, color 250ms ease-in;
+	transition:         background-color 250ms ease-in, color 250ms ease-in;
+}
+
+user-select .user-container .user:hover .success-icon
+{
+	-webkit-transition: background-color 250ms ease-in, color 250ms ease-in;
+	transition:         background-color 250ms ease-in, color 250ms ease-in;
+	color: white;
+}
+
+user-select .user.selected
+{
+    opacity: 1.0;
+}
+
+user-select .user.ng-enter-active,
+user-select .user.ng-move,
+user-select .user.ng-leave
+{
+	max-height: 5.8vmin;
+	opacity:    1.0;
+}
+
+user-select .user.ng-leave-active,
+user-select .user.ng-move-active,
+user-select .user.ng-enter
+{
+	max-height: 0px;
+	opacity:    0.0;
+}
+
+user-select .selected-icon
+{
+    line-height:  4.8vmin;
+    margin-right: 0.5vmin;
+    font-size:    1.5em;
+}
+
+user-select .nickname
+{
+	font-weight: bold;
+    margin-left: 0.5vmin;
+    line-height: 4.8vmin;
+}
+
+.avatar-thumb
+{
+	width:  4.8vmin;
+	height: 4.8vmin;
+}
+
+.avatar-thumb-lg
+{
+	width:  7.2vmin;
+	height: 7.2vmin;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Attachments
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+image-attachment
+{
+	margin-top:  1.0vmax;
+	margin-left: 1.0vmax;
+	display:     inline-block;
+}
+
+image-attachment > div
+{
+	max-width: 80%;
+}
+
+image-attachment img
+{
+	max-width: 100%;
+	height:    auto;
+	border:    2px outset white;
+}
+
+audio-attachment
+{
+	color:         white;
+	margin-top:    1.0vmax;
+	margin-left:   1.0vmax;
+	display:       inline-block;
+	height:        3vmax;
+	line-height:   2vmax;
+	padding:       0.5vmax;
+	border-radius: 1vmax;
+	border:        1px outset white;
+	background:    linear-gradient(#4c4c4c, #000000);
+	font-size:     1.5vmin;
+}
+
+audio-attachment .file-name
+{
+	font-weight: bold;
+}
+
+audio-attachment i:not(last)
+{
+	margin-right: 0.5vmin;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Notifications
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.notification
+{
+	padding:            0.5vmin;
+	border:             2px outset darkgray;
+	background:         linear-gradient(#989898, #000000);
+	max-width:          25vw;
+	-webkit-transition: opacity 300ms ease-in, max-width 300ms ease-in;
+	transition:         opacity 300ms ease-in, max-width 300ms ease-in;
+	height:             12vh;
+}
+
+.notification.ng-enter-active,
+.notification.ng-leave
+{
+	max-width: 25vw;
+	opacity:   1.0;
+}
+
+.notification.ng-leave-active,
+.notification.ng-enter
+{
+	max-width: 0vw;
+	opacity:   0.0;
+}
+
+.notification-icon
+{
+	margin-right: 1vmax;
+}
+
+.notification-icon img
+{
+	max-height: 7vmin;
+	max-width:  7vmin;
+}
+
+.notification-inner
+{
+	padding:          1vmin;
+	border:           1px solid lightgray;
+	background-color: #efefef;
+}
+
+.notification:hover .notification-inner
+{
+	opacity:          1.0;
+	background-color: white;
+}
+
+.notification-title
+{
+	font-size:       1.3em;
+	text-decoration: underline;
+	margin-right:    .2vmin;
+}
+
+.notification-text
+{
+	font-size:     1.2em;
+}
+
+.notification-close
+{
+	line-height: 1.5em;
+}

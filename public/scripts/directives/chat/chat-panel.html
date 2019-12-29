@@ -1,0 +1,39 @@
+<div class="full-flex flex-horizontal no-scroll absolute-anchor" ng-if="!showSideBySide">
+
+    <div class="overlay full-flex flex-horizontal no-scroll  animate-fade" ng-if="!conversation">
+        <chat-conversations-list class="full-flex flex-vertical no-scroll"
+                                 only-with="with"
+                                 on-select="selectConversation">
+
+        </chat-conversations-list>
+    </div>
+
+    <div class="overlay flex-horizontal full-flex no-scroll animate-fade" ng-if="conversation">
+        <chat-conversation class="full-flex flex-vertical"
+                           conversation="conversation"
+                           on-exit="unselectConversation">
+
+        </chat-conversation>
+    </div>
+
+</div>
+
+<div class="full-flex flex-horizontal no-scroll absolute-anchor" ng-if="showSideBySide">
+
+    <div class="unflex flex-horizontal no-scroll side-by-side-left">
+        <chat-conversations-list class="full-flex flex-vertical no-scroll"
+                                 only-with="with"
+                                 on-select="selectConversation">
+
+        </chat-conversations-list>
+    </div>
+
+    <div class="flex-horizontal full-flex no-scroll">
+        <chat-conversation class="full-flex flex-vertical"
+                           conversation="conversation"
+                           on-exit="unselectConversation">
+
+        </chat-conversation>
+    </div>
+
+</div>

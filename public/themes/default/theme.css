@@ -1,0 +1,191 @@
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * theme.css
+ *
+ * Themed stylesheet for the default theme
+ *
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Frame page
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+html, body
+{
+
+}
+
+.main-header
+{
+	font-size:        5.5vh;
+	background-image: url('frame/header.png');
+	background-size:  auto 400%;
+}
+
+.main-header .title
+{
+	text-shadow:      #000000 5px 5px;
+	color:            white;
+	text-align:       center;
+}
+
+.main-menu-icon
+{
+	width:            6.5vh;
+	height:           6.5vh;
+	margin:           2px;
+	background-image: url('frame/main-menu-icon.png');
+	background-size:  100% 100%;
+}
+
+.main-view
+{
+    background-color: white;
+}
+
+.main-footer
+{
+    text-align:       center;
+    font-style:       italic;
+    background-image: url('frame/header.png');
+    background-size:  auto 400%;
+    text-shadow:      #000000 2px 2px;
+    color:            white;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Main menus
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+sidebar-menu.left .content
+{
+    border-right: 4px solid black;
+}
+
+sidebar-menu.right .content
+{
+    border-left: 4px solid black;
+}
+
+sidebar-menu.main-menu .content
+{
+    background-image: url('main-menu/background.png');
+}
+
+sidebar-menu.options-menu .content
+{
+    background-image: url('main-menu/background.png');
+}
+
+sidebar-menu .menu-item.current-page .menu-text
+{
+    text-decoration: underline;
+}
+
+sidebar-menu .menu-item-header:hover .menu-text
+{
+    color:       white;
+    text-shadow: 4px 4px 2px black;
+    text-decoration: none;
+}
+
+sidebar-menu .menu-item.disabled .menu-text,
+sidebar-menu .menu-item.disabled .menu-item-header:hover .menu-text
+
+{
+    color:           #796A45;
+    text-shadow:     none;
+    text-decoration: none;
+}
+
+sidebar-menu .menu-item:not(.disabled) .menu-item-header:hover .menu-icon img
+{
+    -webkit-filter: invert(100%);
+    filter:         invert(100%);
+}
+
+sidebar-menu .menu-item.disabled .menu-icon img,
+sidebar-menu .menu-item.disabled .menu-item-header:hover .menu-icon img
+{
+    -webkit-filter: opacity(50%);
+    filter:         opacity(50%);
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Login page
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+div.login
+{
+    background:       url('login/background.png') no-repeat center center fixed;
+    background-size:  cover;
+    position:         relative;
+}
+
+div.login-panel
+{
+    border-radius:    8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding:          10px;
+    border:           2px solid white;
+    font-weight:      bold;
+    color:            white;
+    text-shadow:      black 2px 4px;
+    position:         absolute;
+    top:              30%;
+    left:             15%;
+    width:            30%;
+}
+
+div.login-panel .loading-block
+{
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Logout page
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+div.logout
+{
+    background:       url('logout/background.png') no-repeat center center fixed;
+    background-size:  cover;
+    position:         relative;
+}
+
+div.logout-panel
+{
+    border-radius:    8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding:          10px;
+    border:           2px solid white;
+    font-weight:      bold;
+    color:            white;
+    text-shadow:      black 2px 4px;
+    position:         absolute;
+    top:              30%;
+    left:             15%;
+    width:            30%;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Admin-users
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.admin-users
+{
+    background: url('admin/blue_moon.png') no-repeat center center fixed;
+    background-size:  cover;
+}

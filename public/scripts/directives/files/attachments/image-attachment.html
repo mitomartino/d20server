@@ -1,0 +1,21 @@
+<div class="image-attachment absolute-anchor" >
+
+    <img ng-src="{{ :: url }}" title="{{ :: url }}" >
+
+    <div class="overlay hide-not-hovered backdrop-hover">
+
+        <div class="overlay top-left clickable nudge-down nudge-right"
+             ng-click="import()"
+             title="Import this file into one of your drawers">
+            <i class="fa fa-border fa-lg fa-external-link clickable general-icon"></i>
+        </div>
+
+        <a href="{{ :: url }}"
+           class="overlay top-right nudge-left nudge-down"
+           title="Download this file"
+           download>
+            <i class="fa fa-border fa-lg fa-download clickable general-icon"></i>
+        </a>
+    </div>
+
+</div>

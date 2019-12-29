@@ -1,0 +1,114 @@
+<input type="file" ng-show="false">
+
+<div class="full-flex flex-vertical">
+
+    <div class="preview-pane full-flex flex-vertical" ng-if="(showPreview === undefined) || (showPreview)" style="height:0px;">
+        <div class="full-flex flex-vertical" ng-if="loadedDrawer.contentType == 'images'" style="position: relative;">
+            <div ng-repeat="item in items"
+                 class="image-preview full-flex overlay"
+                 style="background-image: url('{{ item.url }}');"
+                 ng-class="{'selected': item.selected}">
+            </div>
+        </div>
+
+        <div class="full-flex flex-vertical" ng-if="loadedDrawer.contentType == 'audio'" style="position: relative;">
+            <audio ng-if="(selectedItem) && (selectedItem.contentType=='audio')">
+            </audio>
+            <div class="full-flex full-centered-container">
+                <i class="fa fa-4x audio-preview-icon"
+                   ng-click="toggleAudio()"
+                   ng-class="{'disabled': !selectedItem, 'clickable': selectedItem, 'fa-pause-circle': playingAudio, 'fa-play-circle': !playingAudio}"></i>
+                <span class="preview-title" ng-class="{'disabled': !selectedItem}">
+                    {{ selectedItem.text || 'Select an audio file to play' }}
+                </span>
+            </div>
+        </div>
+
+        <div class="overlay full-centered-container" ng-if="state.view=='loading'">
+            <p>{{message}}</p>
+            <i class="fa fa-3x fa-spinner fa-spin"></i>
+        </div>
+
+        <div class="overlay full-centered-container" ng-if="state.view=='error'">
+            <p class="validation-error">{{state.prompt}}</p>
+            <div class="evenly-distribute button-panel margin10">
+                <button type="button" class="btn btn-info clickable margin5" ng-click="showView('default')">OK</button>
+            </div>
+        </div>
+
+        <div class="overlay full-centered-container" ng-if="state.view=='message'">
+            <p class="message">{{state.prompt}}</p>
+            <div class="evenly-distribute button-panel margin10">
+                <button type="button" class="btn btn-info clickable margin5" ng-click="showView('default')">OK</button>
+            </div>
+        </div>
+
+        <div class="overlay full-centered-container" ng-if="state.view=='prompt'">
+            <p class="validation-error">{{state.prompt}}</p>
+            <div class="evenly-distribute button-panel margin10">
+                <button type="button" class="btn btn-info clickable margin5" ng-click="promptYes()">Yes</button>
+                <button type="button" class="btn btn-info clickable margin5" ng-click="showView('default')">No</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="collection-content-list full-flex flex-vertical auto-scroll" style="height:0px;">
+
+        <div ng-repeat="item in items"
+             class="clickable unflex flex-horizontal collection-item animate-fade-down"
+             ng-class="{'selected': item == selectedItem }"
+             ng-click="itemClicked(item)"
+        >
+
+            <div class="icon unflex">
+                <i class="fa {{ item.icon }} fa-general"></i>
+            </div>
+
+            <div class="file-name full-flex text-single-line">
+                {{ item.text }}
+            </div>
+
+            <div class="unflex audio-time-remaining nudge-left-more"
+                 ng-if="(item.selected) && (loadedDrawer.contentType == 'audio')">
+                {{ audioTimeRemaining | hms }} / {{ audioDuration | hms }}
+            </div>
+
+            <div class="option-icons flex-horizontal unflex" ng-if="(item.selected)">
+
+                <div class="unflex" ng-if="loadedDrawer.contentType == 'audio'" title="Play/pause audio">
+                    <i class="fa fa-border general-icon clickable"
+                       ng-click="toggleAudio()"
+                       ng-class="{'fa-play': !playingAudio, 'fa-pause': playingAudio}"
+                    >
+                    </i>
+                </div>
+
+                <div class="unflex" ng-if="loadedDrawer.contentType == 'audio'" title="Loop audio">
+                    <i class="fa fa-border fa-repeat general-icon clickable toggle"
+                       ng-click="toggleAudioRepeat()"
+                       ng-class="{'selected': audioRepeat}"
+                    >
+                    </i>
+                </div>
+
+                <div class="unflex" title="Import this file" ng-click="import()">
+                    <i class="fa fa-border fa-external-link general-icon clickable"></i>
+                </div>
+
+                <div class="unflex" title="Download this file">
+                    <a ng-href="{{ item.url }}" download>
+                        <i class="fa fa-border fa-download general-icon clickable"></i>
+                    </a>
+                </div>
+
+                <div class="unflex" title="Delete this file" ng-if="writable">
+                    <i class="fa fa-border fa-close alert-icon clickable" ng-click="promptDelete()"></i>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,95 @@
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * animations.css
+ *
+ * Animation definitions stylesheet for the application
+ *
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Animation hooks
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.animate-roll-down.ng-enter
+{
+    animation: slideInDown 0.6s;
+}
+
+.animate-roll-down.ng-leave
+{
+    animation: slideOutUp 0.6s;
+}
+
+.animate-slide-right.ng-enter
+{
+	animation: slideInRight 0.6s;
+}
+
+.animate-slide-right.ng-leave
+{
+	animation: slideOutRight 0.6s;
+}
+
+.animate-slide-left.ng-enter
+{
+	animation: slideInLeft 0.6s;
+}
+
+.animate-slide-left.ng-leave
+{
+	animation: slideOutLeft 0.6s;
+}
+
+.animate-fade-down.ng-move-active
+{
+	position: absolute;
+}
+
+.animate-fade-down.ng-enter
+{
+    animation: fadeInDown 0.6s;
+}
+
+.animate-fade-down.ng-leave
+{
+    animation: fadeOutUp 0.6s;
+}
+
+.animate-fade-up.ng-move-active
+{
+	position: absolute;
+}
+
+.animate-fade-up.ng-enter
+{
+    animation: fadeInUp 0.6s;
+}
+
+.animate-fade-up.ng-leave
+{
+    animation: fadeOutDown 0.6s;
+}
+
+.animate-fade.ng-enter
+{
+    animation: fadeIn 0.6s;
+}
+
+.animate-fade.ng-leave
+{
+    animation: fadeOut 0.6s;
+}
+
+.animate-zoom.ng-enter, .animate-zoom.ng-move
+{
+    animation: zoomIn 0.6s;
+}
+
+.animate-zoom.ng-leave, .animate-zoom.ng-move
+{
+    animation: zoomOut 0.6s;
+}

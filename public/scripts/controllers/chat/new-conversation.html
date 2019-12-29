@@ -1,0 +1,48 @@
+<div class="modal-header flex-horizontal">
+    <div class="modal-title full-flex">
+        New Conversation
+    </div>
+</div>
+
+<div class="modal-body flex-vertical">
+
+    <div class="unflex flex-horizontal" >
+        <div class="heading unflex">
+            Title:
+        </div>
+        <div class="full-flex">
+            <input type="text" class="fill-width" name="title" ng-model="conversation.title" title="title" placeholder="Enter a name for this conversation">
+            <div class="unflex flex-horizontal" >
+                <span class="validation-error" ng-if="errors.title">{{ errors.title }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="user-select-container full-flex flex-vertical">
+        <div class="heading unflex">
+            Users
+        </div>
+        <div class="full-flex nudge-down-more">
+            <user-select allowed-users="allowedUsers"
+                         allow-self="false"
+                         selection="conversation.users"
+                         multi-select="false">
+
+            </user-select>
+        </div>
+    </div>
+
+    <div class="unflex flex-horizontal form-line" >
+        <span class="validation-error" ng-if="errors.users"> {{ errors.users  }}</span>
+        <span class="validation-error" ng-if="errors.server">{{ errors.server }}</span>
+    </div>
+
+    <div class="unflex flex-horizontal action-row">
+        <button type="button" class="btn btn-default clickable full-flex" ng-if="!busy" ng-click="ok()">Create</button>
+        <button type="button" class="btn btn-default clickable full-flex" ng-if="!busy" ng-click="cancel()">Cancel</button>
+        <div class="loading-block" ng-if="busy">
+            <i class="fa fa-3x fa-spinner fa-spin"></i>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,35 @@
+<div class="no-scroll flex-horizontal">
+    <div class="flex-horizontal unflex notification no-scroll"
+         ng-repeat="notification in notifications"
+         ng-if="notification.showNotification"
+         ng-click="clickThrough(notification)"
+         ng-mouseover="mouseOver(notification)"
+         ng-class="{'clickable': notification.click}"
+         ng-mouseout="mouseOut(notification)"
+>
+
+        <div class="notification-inner flex-horizontal no-scroll">
+
+            <div class="unflex notification-icon full-centered-container">
+                <i ng-if="notification.iconType=='fa'" class="fa fa-2x {{ notification.icon }}"></i>
+                <img ng-if="notification.iconType=='image'" ng-src="{{ notification.icon }}">
+            </div>
+
+            <div class="full-flex flex-vertical no-scroll">
+                <div class="unflex flex-horizontal">
+                    <div class="full-flex text-centered text-single-line">
+                        <strong class="notification-title" ng-if="notification.title">{{ notification.title }} <br /></strong>
+                    </div>
+                    <div class="unflex notification-close">
+                        <i class="fa fa-close general-icon clickable" ng-click="hideNotification(notification)"></i>
+                    </div>
+                </div>
+
+                <div class="full-flex full-centered-container notification-text text-single-line">
+                    {{ notification.message }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

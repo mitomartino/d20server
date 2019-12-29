@@ -1,0 +1,73 @@
+<div class="modal-header unflex flex-horizontal {{ cssClass }}">
+    <div class="modal-title full-flex">
+        {{ title }}
+    </div>
+</div>
+
+<div class="modal-body full-flex flex-vertical {{ cssClass }}">
+
+    <collection-browser
+            class="full-flex flex-vertical"
+            collection="collection"
+            show-preview="showPreview"
+            drawer="drawer"
+            file="file"
+            full-path="fullPath"
+            selected-file-type="selectedFileType"
+            allowed-drawers="allowedDrawers">
+    </collection-browser>
+
+    <div class="bottom-buttons flex-horizontal">
+
+        <div ng-if="working" class="loading-block">
+            <i class="fa fa-3x fa-spinner fa-spin"></i>
+        </div>
+
+        <div class="unflex flex-horizontal collection-buttons" ng-if="!working">
+            <div class="unflex"
+                 title="Select from shared files"
+                 ng-if="collections['system'].exists"
+                 ng-click="showCollection('system')">
+                <i class="fa fa-border fa-2x fa-globe general-icon clickable"
+                   ng-class="{'selected': collection == collections['system'].name}">
+
+                </i>
+            </div>
+            <div class="unflex"
+                 title="Select from table files"
+                 ng-if="collections['table'].exists"
+                 ng-click="showCollection('table')">
+                <i class="fa fa-border fa-2x fa-group general-icon clickable"
+                   ng-class="{'selected': collection == collections['table'].name}">
+
+                </i>
+            </div>
+            <div class="unflex"
+                 title="Select from user files"
+                 ng-if="collections['user'].exists"
+                 ng-click="showCollection('user')">
+                <i class="fa fa-border fa-2x fa-user general-icon clickable"
+                   ng-class="{'selected': collection == collections['user'].name}">
+
+                </i>
+            </div>
+        </div>
+
+        <div class="full-flex" ng-if="!working">
+
+        </div>
+
+        <div ng-if="!working" class="unflex flex-horizontal">
+            <div class="clickable option-button" ng-click="fileSelected()">
+                <i class="fa fa-lg fa-check"></i>
+                OK
+            </div>
+            <div class="clickable option-button" ng-click="cancel()">
+                <i class="fa fa-lg fa-close"></i>
+                Cancel
+            </div>
+        </div>
+
+    </div>
+
+</div>

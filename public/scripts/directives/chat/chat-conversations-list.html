@@ -1,0 +1,58 @@
+<div class="unflex flex-horizontal" escape-key="clearFilter()" enter-key="selectFirstConversation()">
+
+    <div class="full-flex"></div>
+
+    <div class="full-flex search-box flex-horizontal">
+        <div class="unflex nudge-left-more clickable"
+             ng-click="newConversation()">
+            <i class="fa fa-plus"></i>
+        </div>
+        <div class="full-flex">
+            <input type="text" ng-model="filterText" auto-focus ng-change="filterConversations()" class="search" placeholder="Search Conversations">
+        </div>
+        <div class="unflex nudge-right-more clickable" ng-if="!currentFilter" ng-click="filterConversations()">
+            <i class="fa fa-search"></i>
+        </div>
+        <div class="unflex nudge-right-more clickable" ng-if="currentFilter" ng-click="clearFilter()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+
+    <div class="full-flex"></div>
+
+</div>
+
+<div class="conversations-container full-flex auto-scroll">
+    <div ng-repeat="conversation in conversations" class="conversation-preview animate-fade-down">
+        <div class="full-flex flex-horizontal">
+            <div class="full-flex small-title text-single-line clickable" ng-click="selectConversation(conversation)">
+                {{ conversation.title}}
+            </div>
+            <div class="unflex clickable full-centered-container nudge-left-more"
+                 title="Archive this conversation"
+                 ng-click="archive(conversation)">
+                <i class="fa fa-2x clickable fa-close general-icon highlight"></i>
+            </div>
+        </div>
+
+        <div class="conversation-participants nudge-down-more">
+            <div class="flex-horizontal">
+                <div class="unflex" ng-repeat="participant in conversation.participants" ng-if="(participant.user) && (participant.user != currentUser)">
+                    <img class="avatar-thumb" ng-src="{{ participant.user.avatar }}">
+                </div>
+                <div class="unflex add-participant-button clickable full-centered-container"
+                     title="Add a user to this conversation"
+                     ng-click="addParticipant(conversation)">
+                    <i class="fa fa-2x clickable fa-plus"></i>
+                </div>
+            </div>
+        </div>
+        <div class="margin10"></div>
+        <div class="conversation-info">
+            Started by {{ conversation.owner.nickname }} on: {{ conversation.started | date:'dd-MMM-yyyy HH:mm:ss' }}
+        </div>
+        <div class="conversation-info">
+            Last Post: <span am-time-ago="conversation.lastUpdatedDate"></span>
+        </div>
+    </div>
+</div>

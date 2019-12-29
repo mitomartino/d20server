@@ -1,0 +1,38 @@
+<div class="unflex flex-horizontal" ng-keydown="keyDown($event)">
+
+    <div class="full-flex"></div>
+
+    <div class="full-flex search-box flex-horizontal">
+        <div class="unflex nudge-left-more clickable"
+             show-if-authorized="create users"
+             ng-click="addUser()">
+            <i class="fa fa-plus"></i>
+        </div>
+        <div class="full-flex">
+            <input type="text" ng-model="filterText" auto-focus ng-change="filterByNickname()" class="search" placeholder="Search users">
+        </div>
+        <div class="unflex nudge-right-more clickable" ng-if="!currentFilter" ng-click="filterByNickname()">
+            <i class="fa fa-search"></i>
+        </div>
+        <div class="unflex nudge-right-more clickable" ng-if="currentFilter" ng-click="clearFilter()">
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+
+    <div class="full-flex"></div>
+
+</div>
+
+<user-tile user="userModel.editing"
+           expanding-overlay="{{ userModel.editing._id }}"
+           expanded="{{ userModel.editing.showingDetails }}"
+           ng-if="userModel.editing"
+           class="detailed">
+</user-tile>
+
+<div class="full-flex auto-scroll user-tiles">
+
+    <user-tile read-only="false" user="user" ng-attr-id="{{ user._id }}" class="animate-zoom" ng-repeat="user in filteredUsers">
+    </user-tile>
+
+</div>

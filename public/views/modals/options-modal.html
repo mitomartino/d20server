@@ -1,0 +1,33 @@
+<div class="modal-header flex-horizontal {{ cssClass }}">
+    <div class="modal-title full-flex">
+        {{ title }}
+    </div>
+</div>
+
+<div class="modal-body flex-vertical {{ cssClass }}">
+    <div class="options-modal-prompt">
+        {{ prompt }}
+
+        <div class="error-block validation-error" ng-if="errorMessage">
+            <br />
+            {{ errorMessage }}
+        </div>
+    </div>
+
+    <div class="option-buttons">
+
+        <div ng-if="working" class="loading-block">
+            <i class="fa fa-3x fa-spinner fa-spin"></i>
+        </div>
+
+        <div ng-if="!working">
+            <div ng-repeat="option in options"
+                 class="clickable option-button {{ option.cssClass }}"
+                 ng-click="optionSelected(option)">
+                <i class="fa fa-lg {{ option.icon }}"></i>
+                {{ option.text }}
+            </div>
+        </div>
+    </div>
+
+</div>

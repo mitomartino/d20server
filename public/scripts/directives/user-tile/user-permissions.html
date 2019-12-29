@@ -1,0 +1,9 @@
+<div class="unflex">
+    <span ng-repeat="permission in permissions" ng-if="!permission.hidden">
+        <i class="fa fa-border fa-2x {{ permission.icon }} general-icon toggle"
+           title="{{ permission.entitlement }}"
+           ng-class="{'selected': enabled[$index], 'clickable': editable[$index] }"
+           ng-click="togglePermission($index)">
+        </i>
+    </span>
+</div>

@@ -1,0 +1,60 @@
+<div class="full-flex flex-vertical login">
+
+    <div clas="unflex flex-vertical">
+
+        <div class="fit-content login-panel">
+
+            <form ng-submit="login($event)">
+
+                <div class="unflex flex-horizontal form-line" ng-if="!info">
+                    <div class="unflex">
+                        <label for="email">E-mail:</label>
+                    </div>
+                    <div class="full-flex">
+                        <input type="text" enter-key="login()" auto-focus name="email" ng-model="user.email" title="email address" placeholder="Enter an email address">
+                    </div>
+                </div>
+
+                <div class="unflex flex-horizontal form-line" ng-if="!info">
+                    <span class="validation-error" ng-if="errors.email">{{ errors.email }}</span>
+                </div>
+
+                <div class="unflex flex-horizontal form-line" ng-if="!info">
+                    <div class="unflex">
+                        <label for="password">Password:</label>
+                    </div>
+                    <div class="full-flex">
+                        <input type="password" enter-key="login()" name="password" ng-model="user.password" title="password">
+                    </div>
+                </div>
+
+                <div class="unflex flex-horizontal form-line" >
+                    <span class="validation-error" ng-if="errors.password">{{ errors.password }}</span>
+                </div>
+
+                <div class="unflex flex-horizontal form-line text-centered" >
+                    <div class="form-messages">
+                        <span class="validation-error" ng-if="errors.server">{{ errors.server }}</span>
+                        <span class="full-bold" ng-if="(!errors.server) && (!info)">{{ loginStatus.loginMessage }}</span>
+                        <span class="full-bold" ng-if="info">{{ info }}</span>
+                    </div>
+                </div>
+
+                <div class="full-flex">
+
+                </div>
+
+                <div class="unflex flex-horizontal action-row">
+                    <button type="button" class="btn btn-default clickable full-flex" ng-if="!loginStatus.busy" ng-click="login()">Log In</button>
+
+                    <div class="loading-block" ng-if="loginStatus.busy">
+                        <i class="fa fa-3x fa-spinner fa-spin"></i>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>

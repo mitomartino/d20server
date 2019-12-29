@@ -1,0 +1,46 @@
+<div class="content" ng-if="(showMenu) && (menuReady)">
+
+    <div class="menu-title" ng-if="menuTitle">
+        {{ menuTitle }}
+    </div>
+
+    <div ng-repeat="item in menuItems"
+         class="menu-item menu-l1"
+         ng-class="{'clickable': item.enabled, 'disabled': !item.enabled, 'current-page': item.isCurrentPage}"
+         ng-click="menuItemClicked($event, item)"
+         ng-mouseenter="menuItemHovered(item)">
+
+        <div class="menu-item-header flex-horizontal">
+
+            <div class="menu-icon">
+                <img ng-src="{{ item.icon }}" ng-if="item.icon">
+            </div>
+
+            <div class="menu-text text-single-line">
+                {{ item.title }}
+            </div>
+
+        </div>
+
+        <div class="sub-menu" ng-if="item.expanded">
+            <div ng-repeat="subitem in item.options"
+                 class="menu-l2 menu-item "
+                 ng-class="{'clickable': subitem.enabled, 'disabled': !subitem.enabled, 'current-page': subitem.isCurrentPage}"
+                 ng-click="menuItemClicked($event, subitem)"
+                 ng-mouseenter="menuItemHovered(subitem)">
+
+                <div class="menu-item-header flex-horizontal">
+                    <div class="menu-icon unflex">
+                        <img ng-src="{{ subitem.icon }}" ng-if="subitem.icon">
+                    </div>
+                    <div class="menu-text text-single-line full-flex">
+                        {{ subitem.title }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

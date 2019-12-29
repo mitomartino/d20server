@@ -1,0 +1,33 @@
+<div style="background-color: white; border: 2px solid black; display: inline-block;">
+    <img src="cid:banner@mail.d20server" style="width:100%; margin-bottom: 50px;">
+
+    <div style="padding: 5px;">
+        <h1>Welcome, {{ user.nickname }} </h1>
+
+        <br />
+
+        <p style="margin-top: 10px;">
+            {{ admin.nickname }} has added your account to the D20 game server at {{ link_back }} .
+        </p>
+
+        <br />
+
+        <p style="margin-top: 5px;">
+            You can now log in, make friends, and browse games.  Click the link below to get started.  Your temporary
+            password is:
+                <ul><li>{{ password }}</li></ul>
+            <br />
+
+            You should log in and set a new password as soon as possible.
+        </p>
+
+        <br />
+
+        <p style="margin-top: 5px;">
+            <a rel="nofollow" href="{{ link_back }}" target="_blank">Get started</a>
+        </p>
+
+        <br />
+    </div>
+
+</div>

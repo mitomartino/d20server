@@ -1,0 +1,27 @@
+<div class="full-flex flex-vertical logout" enter-key="logout()">
+
+    <div clas="unflex flex-vertical">
+
+        <div class="fit-content logout-panel">
+
+            <div class="unflex flex-horizontal form-line text-centered" >
+                <div class="form-messages">
+                    <span class="validation-error" ng-if="errors.server">{{ errors.server }}</span>
+                    <span class="full-bold" ng-if="!errors.server">Do you really wish to log out?</span>
+                </div>
+            </div>
+
+            <div class="full-flex"></div>
+
+            <div class="unflex flex-horizontal action-row">
+                <button type="button" auto-focus class="btn btn-default clickable full-flex" ng-if="!loginStatus.busy" ng-click="logout()">Log Out</button>
+
+                <div class="loading-block" ng-if="loginStatus.busy">
+                    <i class="fa fa-3x fa-spinner fa-spin"></i>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

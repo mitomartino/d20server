@@ -1,0 +1,24 @@
+doctype html
+
+html(lang="en", ng-app="d20helper")
+    head
+
+        if appInfo
+            title= appInfo.title || "Error"
+
+            if appInfo.description
+                meta(name="description" content=appInfo.description)
+
+            if appInfo.viewport
+                meta(name="viewport", content=appInfo.viewport)
+
+            if appInfo.stylesheets
+                each path in appInfo.stylesheets
+                    link(rel='stylesheet', href=path)
+
+            if appInfo.scripts
+                each path in appInfo.scripts
+                    script(src=path)
+
+    body.flex-vertical(ng-controller=appInfo.mainController)
+        block content

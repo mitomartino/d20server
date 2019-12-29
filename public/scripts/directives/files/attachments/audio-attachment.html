@@ -1,0 +1,43 @@
+<audio></audio>
+
+<div class="audio-attachment full-flex flex-horizontal">
+    <div class="full-flex flex-horizontal" ng-if="(loaded) && (!error)">
+        <div class="file-name unflex text-single-line">
+            {{ :: fileName }}
+        </div>
+
+        <div class="unflex audio-time-remaining nudge-right-more nudge-left-more">
+            {{ audioTimeRemaining | hms }} / {{ audioDuration | hms }}
+        </div>
+
+        <div class="unflex" title="Play/pause audio">
+            <i class="fa fa-border general-icon clickable"
+               ng-click="toggleAudio()"
+               ng-class="{'fa-play': !playingAudio, 'fa-pause': playingAudio}">
+            </i>
+        </div>
+
+        <div class="unflex" title="Loop audio">
+            <i class="fa fa-border fa-repeat general-icon clickable toggle"
+               ng-click="toggleAudioRepeat()"
+               ng-class="{'selected': audioRepeat}"
+            >
+            </i>
+        </div>
+
+        <div class="unflex" title="Import this file" ng-click="import()">
+            <i class="fa fa-border fa-external-link general-icon clickable"></i>
+        </div>
+
+        <div class="unflex" title="Download this file">
+            <a ng-href="{{ url }}" download>
+                <i class="fa fa-border fa-download general-icon clickable"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="full-flex" ng-if="error">
+        <i class="fa fa-lg alert-icon fa-exclamation-triangle"></i>
+        {{ :: fileName }} - {{ error }}
+    </div>
+</div>
