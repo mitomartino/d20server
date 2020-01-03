@@ -20,7 +20,8 @@ angular.module('d20helper.sidebarMenu', [])
                 menuTitle:  '@', // title for the menu
                 anchor:     '@', // anchor (left or right)
                 options:    '=', // the menu options
-                showMenu:   '='  // whether or not menu is visible
+                showMenu:   '=', // whether or not menu is visible
+                launcher:   '@'  // css selector to locate the launcher element(s)
             },
 
             /**
@@ -40,16 +41,29 @@ angular.module('d20helper.sidebarMenu', [])
             {
                 function init()
                 {
+                    $scope.launcherEl = null;
+
                     if ( (!$scope.anchor) || (!$scope.anchor.length) )
                     {
                         $scope.anchor = 'left';
                     }
 
                     // close the sidebar when a click lands outside of it
-                    $(document).bind('mousedown', function(event) 
+                    angular.element(window).bind('mousedown', function(event) 
                     {
                         if ($scope.showMenu)
                         {
+                            // if the target of the click was our launcher, then ignore
+                            if ($scope.launcherEl) 
+                            {
+                                if ( ($scope.launcherEl[0] == event.target) || 
+                                     ($scope.launcherEl.find(event.target).length > 0) )
+                                {
+                                    return;
+                                }
+                            }
+
+                            // otherwise, if the click landed outside of the menu, then hide it
                             if (!element.find(event.target).length)
                             {
                                 $scope.$apply(function()
@@ -60,8 +74,22 @@ angular.module('d20helper.sidebarMenu', [])
                         }
                     });
 
+                    // locate the launcher element
+                    $scope.$watch('launcher', function(newval)
+                    {
+                        if (newval)
+                        {
+                            $scope.launcherEl = angular.element(newval);
+                        }
+                        else
+                        {
+                            $scope.launcherEl = null;
+                        }
+                    });
+
                     // process options when they are set
-                    $scope.$watch('options', function(){
+                    $scope.$watch('options', function()
+                    {
                         $scope.makeOptions();
                         $scope.authorizeOptions();
                     });

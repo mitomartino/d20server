@@ -3,18 +3,18 @@ extends layout
 block content
     div.unflex.flex-horizontal.main-header.no-scroll
 
-        div.unflex.main-menu-icon.clickable(ng-click="showMainMenu = !showMainMenu")
+        div.unflex.main-menu-icon.main-menu-launcher.clickable(ng-click="showMainMenu = !showMainMenu")
 
         div.full-flex.text-single-line.title
             | {{ application.title || 'Please Wait...' }}
 
-        div.unflex.main-menu-icon.clickable(ng-click="showOptionsMenu = !showOptionsMenu")
+        div.unflex.main-menu-icon.option-menu-launcher.clickable(ng-click="showOptionsMenu = !showOptionsMenu")
 
     div.full-flex.flex-vertical.main-view.auto-scroll
 
-        sidebar-menu.main-menu(anchor="left", menu-title="Main Menu", show-menu="showMainMenu", options="application.mainMenu")
+        sidebar-menu.main-menu(anchor="left", menu-title="Main Menu", launcher='.main-menu-launcher', show-menu="showMainMenu", options="application.mainMenu")
 
-        sidebar-menu.options-menu(anchor="right", menu-title="{{ optionsMenuTitle || 'Options Menu' }}", show-menu="showOptionsMenu", options="application.optionsMenu")
+        sidebar-menu.options-menu(anchor="right", menu-title="{{ optionsMenuTitle || 'Options Menu' }}", launcher='.option-menu-launcher', show-menu="showOptionsMenu", options="application.optionsMenu")
 
         notification-popup(time-to-live="userSettings.notificationTtl", notification="notification")
 
