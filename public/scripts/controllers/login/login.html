@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="unflex flex-horizontal action-row">
-                    <button type="button" class="btn btn-default clickable full-flex" ng-if="!loginStatus.busy" ng-click="login()">Log In</button>
+                    <md-button class="md-raised md-primary clickable full-flex" ng-if="!loginStatus.busy" ng-click="login()">Log In</md-button>
 
                     <div class="loading-block" ng-if="loginStatus.busy">
                         <i class="fa fa-3x fa-spinner fa-spin"></i>

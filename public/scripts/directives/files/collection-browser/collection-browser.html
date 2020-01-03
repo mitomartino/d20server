@@ -32,22 +32,22 @@
         <div class="overlay full-centered-container" ng-if="state.view=='error'">
             <p class="validation-error">{{state.prompt}}</p>
             <div class="evenly-distribute button-panel margin10">
-                <button type="button" class="btn btn-info clickable margin5" ng-click="showView('default')">OK</button>
+                <md-button class="md-raised md-primary  clickable margin5" ng-click="showView('default')">OK</md-button>
             </div>
         </div>
 
         <div class="overlay full-centered-container" ng-if="state.view=='message'">
             <p class="message">{{state.prompt}}</p>
             <div class="evenly-distribute button-panel margin10">
-                <button type="button" class="btn btn-info clickable margin5" ng-click="showView('default')">OK</button>
+                <md-button class="md-raised md-primary  clickable margin5" ng-click="showView('default')">OK</md-button>
             </div>
         </div>
 
         <div class="overlay full-centered-container" ng-if="state.view=='prompt'">
             <p class="validation-error">{{state.prompt}}</p>
             <div class="evenly-distribute button-panel margin10">
-                <button type="button" class="btn btn-info clickable margin5" ng-click="promptYes()">Yes</button>
-                <button type="button" class="btn btn-info clickable margin5" ng-click="showView('default')">No</button>
+                <md-button class="md-raised md-primary  clickable margin5" ng-click="promptYes()">Yes</md-button>
+                <md-button class="md-raised md-primary  clickable margin5" ng-click="showView('default')">No</md-button>
             </div>
         </div>
 

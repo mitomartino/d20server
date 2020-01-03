@@ -1,85 +1,100 @@
 <input type="file" ng-show="false">
 
-<uib-carousel ng-if="(state.view == 'slides') && (slides.length)" no-transition="!showTransitions">
-    <uib-slide ng-repeat="slide in slides" active="slide.active">
+<!-- Image chooser carousel -->
+<div class="full-flex carousel-panel absolute-anchor">
 
-        <div class="slide-image hide-not-hovered" style="background-image: url('{{slide.image}}')">
+    <!-- Image slides -->
+    <div 
+        ng-repeat="slide in slides" 
+        class="slide-image full-flex overlay" 
+        ng-class="{'selected': slide.active}"
+        style="background-image: url('{{slide.image}}')"
+    >
+        <!-- Caption with image name -->
+        <div class="overlay carousel-caption">
+            <p>{{ slide.text }}</p>
+        </div>
+    
+        <!-- Controls to add/remove images; hidden until user mouses over this panel -->
+        <div class="overlay hide-not-hovered" ng-click="showNextSlide()" >
             <div class="flex-horizontal" nf-if="(slide.image) && (!readOnly)">
                 <div class="unflex new-slide-button clickable margin5"
-                     show-if-authorized="manage resources"
-                     authorize-on="{{ loadedCollection._id}}"
-                     ng-click="showFileChooser()">
+                        show-if-authorized="manage resources"
+                        authorize-on="{{ loadedCollection._id}}"
+                        ng-click="showFileChooser($event)">
                     <i class="clickable fa fa-lg fa-border fa-plus invert-general-icon"></i>
                 </div>
-
+    
                 <div class="full-flex"></div>
-
+    
                 <div class="unflex delete-slide-button clickable margin5"
-                     show-if-authorized="manage resources"
-                     authorize-on="{{ loadedCollection._id}}"
-                     ng-click="promptDelete()">
+                        show-if-authorized="manage resources"
+                        authorize-on="{{ loadedCollection._id}}"
+                        ng-click="promptDelete($event)">
                     <i class="clickable fa fa-lg fa-border fa-minus invert-general-icon"></i>
                 </div>
             </div>
         </div>
-
-        <div class="carousel-caption">
-            <p>{{ slide.text }}</p>
-        </div>
-
-    </uib-slide>
-
-</uib-carousel>
-
-<div class="full-flex carousel-panel"  ng-if="(state.view == 'slides') && (slides.length == 0)">
-    <div class="slide-image" style="background-image: url('{{state.panelImage}}')">
-        <div class="carousel-caption full-centered-container">
-            <p>
-                It appears that there is nothing here.
-                <br/>
-                <br/>
-                <a ng-click="showFileChooser()">Add an image</a>
-            </p>
-        </div>
+    
     </div>
-</div>
 
-<div class="full-flex carousel-panel"  ng-if="state.view == 'message'">
-    <div class="slide-image" style="background-image: url('{{state.panelImage}}')">
-        <div class="carousel-caption full-centered-container">
-            <p>{{state.prompt}}</p>
-        </div>
-    </div>
-</div>
-
-<div class="full-flex carousel-panel"  ng-if="state.view == 'prompt'">
-    <div class="slide-image" style="background-image: url('{{state.panelImage}}')">
-        <div class="carousel-caption full-centered-container">
-            <p>{{state.prompt}}</p>
-            <div class="evenly-distribute margin10">
-                <button type="button" class="btn btn-info clickable margin5" ng-click="doDelete()">Yes</button>
-                <button type="button" class="btn btn-info clickable margin5" ng-click="showSlides()">No</button>
+    <!-- No slides available message -->
+    <div class="full-flex carousel-panel"  ng-if="(state.view == 'slides') && (slides.length == 0)">
+        <div class="slide-image selected full-flex overlay" style="background-image: url('{{state.panelImage}}')">
+            <div class="overlay carousel-caption full-centered-container">
+                <p>
+                    It appears that there is nothing here.
+                    <br/>
+                    <br/>
+                    <a ng-click="showFileChooser()">Add an image</a>
+                </p>
             </div>
         </div>
     </div>
-</div>
-
-<div class="full-flex carousel-panel"  ng-if="state.view == 'loading'">
-    <div class="slide-image" style="background-image: url('{{state.panelImage}}')">
-        <div class="carousel-caption full-centered-container">
-            <p>{{state.prompt}}</p>
-            <i class="fa fa-3x fa-spinner fa-spin"></i>
-        </div>
-    </div>
-</div>
-
-<div class="full-flex carousel-panel"  ng-if="state.view == 'error'">
-    <div class="slide-image" style="background-image: url('{{state.panelImage}}')">
-        <div class="carousel-caption full-centered-container">
-            <p class="validation-error">{{state.prompt}}</p>
-            <div class="evenly-distribute margin10">
-                <button type="button" class="btn btn-info clickable margin5" ng-click="showSlides()">OK</button>
+    
+    <!-- Custom message from controller -->
+    <div class="full-flex carousel-panel"  ng-if="state.view == 'message'">
+        <div class="slide-image selected full-flex overlay" style="background-image: url('{{state.panelImage}}')">
+            <div class="overlay carousel-caption full-centered-container">
+                <p>{{state.prompt}}</p>
             </div>
         </div>
     </div>
+    
+    <!-- Prompt for delete -->
+    <div class="full-flex carousel-panel"  ng-if="state.view == 'prompt'">
+        <div class="slide-image selected full-flex overlay" style="background-image: url('{{state.panelImage}}')">
+            <div class="overlay carousel-caption full-centered-container">
+                <p>{{state.prompt}}</p>
+                <div class="distribute-center margin10">
+                    <md-button class="md-raised md-primary  clickable margin5" ng-click="doDelete()">Yes</md-button>
+                    <md-button class="md-raised md-primary  clickable margin5" ng-click="showSlides()">No</md-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading screen -->
+    <div class="full-flex carousel-panel"  ng-if="state.view == 'loading'">
+        <div class="slide-image selected full-flex overlay" style="background-image: url('{{state.panelImage}}')">
+            <div class="overlay carousel-caption full-centered-container">
+                <p>{{state.prompt}}</p>
+                <i class="fa fa-3x fa-spinner fa-spin"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error message -->
+    <div class="full-flex carousel-panel"  ng-if="state.view == 'error'">
+        <div class="slide-image selected full-flex overlay" style="background-image: url('{{state.panelImage}}')">
+            <div class="overlay carousel-caption full-centered-container">
+                <p class="validation-error">{{state.prompt}}</p>
+                <div class="distribute-center margin10">
+                    <md-button class="md-raised md-primary  clickable margin5" ng-click="showSlides()">OK</md-button>
+                </div>
+            </div>
+        </div>
+    </div>    
+
 </div>
+

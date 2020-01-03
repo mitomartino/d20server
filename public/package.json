@@ -1,0 +1,24 @@
+{
+  "name": "d20frontend",
+  "version": "1.0.0",
+  "description": "Front-end web application for the d20server",
+  "main": "app.js",
+  "author": "William M Martino",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.7.9",
+    "angular-animate": "^1.7.9",
+    "angular-aria": "^1.7.9",
+    "angular-loader": "^1.7.9",
+    "angular-material": "^1.1.20",
+    "angular-messages": "^1.7.9",
+    "angular-momentjs": "^0.2.2",
+    "angular-route": "^1.7.9",
+    "angular-ui-router": "^1.0.23",
+    "font-awesome": "^4.7.0",
+    "html5-boilerplate": "^7.3.0",
+    "jquery": "^3.4.1",
+    "moment": "^2.24.0",
+    "underscore": "^1.9.1"
+  }
+}

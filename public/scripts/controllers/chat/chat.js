@@ -2,14 +2,18 @@
 
 angular.module('d20helper.chat', ['ngRoute']).
 
-config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider)
+config(['$stateProvider', function($stateProvider)
 {
     // state definitions
     $stateProvider.state("chat",
     {
-        url:         "/chat/:conversationId",
+        url:         "/chat/{conversationId}",
         controller:  "ChatCtrl",
         templateUrl: "scripts/controllers/chat/chat.html",
+        params:
+        {
+            conversationId: null
+        },
         data:
         {
             title:   'Conversations',
@@ -24,9 +28,9 @@ config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $st
  */
 controller('ChatCtrl', [
 
-    '$rootScope', '$scope', '$state', '$stateParams', 'chatService', 'applicationService',
+    '$transitions', '$scope', '$state', '$stateParams', 'chatService', 'applicationService',
 
-    function($rootScope, $scope, $state, $stateParams, chatService, applicationService)
+    function($transitions, $scope, $state, $stateParams, chatService, applicationService)
     {
         /**
          * Initialize the controller
@@ -34,7 +38,7 @@ controller('ChatCtrl', [
         function init()
         {
             // when the state changes, we want to try to update our message
-            $rootScope.$on('$stateChangeSuccess', function(event, toState)
+            $transitions.onSuccess({}, function(transition)
             {
                 $scope.setConversationFromState();
             });

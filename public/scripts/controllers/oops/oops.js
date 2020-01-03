@@ -59,7 +59,7 @@ controller('OopsCtrl', [
             $scope.unauthUrl = themeService.getImageUrl('frame', 'not-authorized');
 
             // when the state changes, we want to try to update our message
-            $rootScope.$on('$stateChangeSuccess', function(event, toState)
+            $transitions.onSuccess({}, function(transition)
             {
                 $scope.setMessageFromState();
             });

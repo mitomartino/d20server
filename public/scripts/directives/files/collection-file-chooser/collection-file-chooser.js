@@ -106,19 +106,24 @@ directive('collectionFileChooser', [
 
                     if (collName)
                     {
-                        collectionService.loadCollection(collDef.name).then(function ()
-                        {
-                            if ((!$scope.collection) && (collDef.isDefault))
+                        collectionService.loadCollection(collDef.name).then(
+                            function ()
                             {
-                                $scope.collection = collDef.name;
-                            }
-                            else if (!$scope.initialCollection)
-                            {
-                                $scope.collection = collDef.name;
-                            }
+                                if ((!$scope.collection) && (collDef.isDefault))
+                                {
+                                    $scope.collection = collDef.name;
+                                }
+                                else if (!$scope.initialCollection)
+                                {
+                                    $scope.collection = collDef.name;
+                                }
 
-                            collDef.exists = true;
-                        });
+                                collDef.exists = true;
+                            },
+                            function(error)
+                            {
+                                // collection does not exist
+                            });
                     }
                     else
                     {

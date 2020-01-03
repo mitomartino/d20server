@@ -4,9 +4,9 @@ angular.module('d20helper.collectionService', []).
 
 controller('ImportFileIntoCollectionCtrl', [
 
-    "$scope", "ajaxService", "collectionService", "utilsService", "importData", "systemCollection", "userCollection", "gameCollection",
+    "$scope", "$mdDialog", "ajaxService", "collectionService", "utilsService", "importData", "systemCollection", "userCollection", "gameCollection",
 
-    function($scope, ajaxService, collectionService, utilsService, importData, systemCollection, userCollection, gameCollection)
+    function($scope, $mdDialog, ajaxService, collectionService, utilsService, importData, systemCollection, userCollection, gameCollection)
     {
         /**
          * Initialize the controller
@@ -205,7 +205,7 @@ controller('ImportFileIntoCollectionCtrl', [
                 req.then(
                     function(result)
                     {
-                        $scope.$close(result);
+                        $mdDialog.hide(result);
                     },
                     function(err)
                     {
@@ -222,7 +222,7 @@ controller('ImportFileIntoCollectionCtrl', [
          */
         $scope.cancel = function()
         {
-            $scope.$dismiss("cancel");
+            $mdDialog.cancel();
         }
 
         init();
@@ -649,7 +649,7 @@ factory('collectionService', ['$q', 'ajaxService', 'applicationService', 'modalS
                 // load the collection if one was not specified
                 if (!collection._id)
                 {
-                    service.loadCollection(collection).then(uploadToCollection);
+                    service.loadCollection(collection).then(uploadToCollection, function(err) {});
                 }
                 else
                 {

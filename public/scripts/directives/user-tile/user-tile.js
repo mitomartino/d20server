@@ -49,6 +49,14 @@ angular.module('d20helper.userTile', [])
                         $scope.updatePermissions();
                     });
 
+                    $scope.$watch('user.files', function()
+                    {
+                        if ( ($scope.user.files) && (!$scope.user.lastDrawer) )
+                        {
+                            $scope.user.lastDrawer = null;
+                        }
+                    });
+
                     $scope.$watch('currentUser.permissionTargets', function()
                     {
                         $scope.updatePermissions();
@@ -515,10 +523,15 @@ angular.module('d20helper.userTile', [])
 
                         if ($scope.user)
                         {
-                            collectionService.urlToCollection($scope.user.avatar).then(function (info)
-                            {
-                                $scope.avatarInfo = info;
-                            });
+                            collectionService.urlToCollection($scope.user.avatar).then(
+                                function (info)
+                                {
+                                    $scope.avatarInfo = info;
+                                },
+                                function(error)
+                                {
+                                    console.log($scope.user, error);
+                                });
 
                             var view = _.findWhere($scope.views, {name: 'chat'});
 

@@ -96,7 +96,8 @@ angular.module('d20helper.expandingOverlay', [])
                                         $scope.findTargetShape();
 
                                         element.css('visibility', 'initial');
-
+                                        element.css('zIndex', 1);
+                                        
                                         $scope.animateShape($scope.initial, $scope.target, function ()
                                         {
                                             $scope.expanded = true;
@@ -106,8 +107,6 @@ angular.module('d20helper.expandingOverlay', [])
                                 }
                                 else if ($scope.expanded)
                                 {
-                                    var parent = element.offsetParent();
-
                                     $scope.findInitialShape();
                                     $scope.findTargetShape();
 

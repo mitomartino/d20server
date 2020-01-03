@@ -16,9 +16,9 @@ angular.module('d20helper.applicationService', []).
  *  setTitle(title)
  *
  */
-factory('applicationService', ['$rootScope', '$state', '$stateParams', '$q', '$timeout', 'ajaxService', 'utilsService', "socketService",
+factory('applicationService', ['$rootScope', '$state', '$transitions', '$q', '$timeout', 'ajaxService', 'utilsService', "socketService",
 
-    function($rootScope, $state, $stateParams, $q, $timeout, ajaxService, utilsService, socketService)
+    function($rootScope, $state, $transitions, $q, $timeout, ajaxService, utilsService, socketService)
     {
         var service =
         {
@@ -50,6 +50,10 @@ factory('applicationService', ['$rootScope', '$state', '$stateParams', '$q', '$t
          */
         function init()
         {
+            /**
+             * Global error handler.  If for some reason, requests become unauthorized, return to the login
+             * page.
+             */
             ajaxService.addErrorHandler(function(event, request, response) {
                 console.log('error', request, response);
 
@@ -67,24 +71,28 @@ factory('applicationService', ['$rootScope', '$state', '$stateParams', '$q', '$t
                 }
             });
 
-            $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+            /**
+             * Monitor transitions and provide some basic functionality.
+             */
+            $transitions.onStart({}, function(transition) {
 
+                // on any transition, close any open modal dialogs
                 if (service.model.currentModal)
                 {
                     service.model.currentModal.close();
                 }
 
+                // if the user is not logged in, then attempt login
                 if ( (!service.model.loginStatus.loggedIn) &&
-                     (toState.name != 'login')             &&
-                     (toState.name != 'not-found') )
+                     (transition.to().name != 'login')             &&
+                     (transition.to().name != 'not-found') )
                 {
-                    event.preventDefault();
-
-                    service.model.loginStatus.nextState     = toState.name;
-                    service.model.loginStatus.nextStateData = toParams;
+                    service.model.loginStatus.nextState     = transition.to().name;
+                    service.model.loginStatus.nextStateData = transition.params();
 
                     $state.go('login');
                 }
+                // if the user is banned, then restrict their access
                 else if ( (service.model.currentUser)          &&
                           (service.model.currentUser.isBanned) &&
                           (toState.name != 'banned')           &&
@@ -92,16 +100,15 @@ factory('applicationService', ['$rootScope', '$state', '$stateParams', '$q', '$t
                           (toState.name != 'login')            &&
                           (toState.name != 'unauthorized') )
                 {
-                    event.preventDefault();
-
                     $state.go('banned');
                 }
             });
 
+            // update title and user status
             service.setTitleFromState();
             service.setStatusFromState();
 
-            $rootScope.$on('$stateChangeSuccess', function(){
+            $transitions.onSuccess({}, function(){
                 service.setTitleFromState();
                 service.setStatusFromState();
             });

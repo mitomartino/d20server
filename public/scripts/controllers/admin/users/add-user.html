@@ -4,7 +4,7 @@
     </div>
 </div>
 
-<div class="modal-body flex-vertical">
+<div class="modal-body add-user flex-vertical">
 
     <div class="unflex flex-horizontal tabs">
         <div class="full-flex" ng-repeat="tab in tabs" ng-class="{'active': view.name == tab.name}">
@@ -99,8 +99,8 @@
 </div>
 
 <div class="unflex flex-horizontal action-row">
-    <button type="button" class="btn btn-default clickable full-flex" ng-if="!busy" ng-click="addUser()">Add User</button>
-    <button type="button" class="btn btn-default clickable full-flex" ng-if="!busy" ng-click="cancel()">Cancel</button>
+    <md-button class="md-raised md-primary clickable full-flex" ng-if="!busy" ng-click="addUser()">Add User</md-button>
+    <md-button class="md-raised md-warn clickable full-flex" ng-if="!busy" ng-click="cancel()">Cancel</button>
     <div class="loading-block" ng-if="busy">
         <i class="fa fa-3x fa-spinner fa-spin"></i>
     </div>

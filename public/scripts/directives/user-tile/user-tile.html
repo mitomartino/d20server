@@ -84,9 +84,10 @@
 
                     <span class="bytes-remaining">{{ bytesRemaining | diskspace }} remaining</span>
 
-                    <uib-progressbar max="maxPercent" value="percentDiskFree" type="{{ percentDiskFreeClass }}">
-                        {{ percentDiskFree }}%
-                    </uib-progressbar>
+                    <md-progress-linear md-mode="determinate" value="{{percentDiskFree}}">
+                    </md-progress-linear>
+
+                    {{ percentDiskFree }}%
                 </div>
 
                 <div ng-if="!user.files" class="flex-vertical">
@@ -95,9 +96,9 @@
                             User File Space:
                         </div>
 
-                        <button type="button" class="btn btn-primary clickable full-flex margin5" ng-click="makeFileCollection()">
+                        <md-button class="md-raised md-primary full-flex margin5" ng-click="makeFileCollection()">
                             Create Drawers
-                        </button>
+                        </md-button>
                     </div>
                 </div>
 
@@ -122,24 +123,27 @@
                 <div class="small-title">
                     Actions
                 </div>
-                <button type="button"
+                <md-button
                         ng-repeat="viewButton in views"
-                        class="btn btn-primary clickable unflex margin5 nudge-down"
-                        ng-model="view.name"
-                        ng-show="viewButton.visible"
-                        uib-btn-radio="'{{ viewButton.name }}'">
-                    <i class="fa fa-lg {{ viewButton.icon }} left-icon nudge-left-more"></i> {{ viewButton.title }}
-                </button>
+                        class="icon-button md-primary md-raised clickable unflex margin5 nudge-down"
+                        ng-class="{'md-hue-2': view.name == viewButton.name}"
+                        ng-click="view.name = viewButton.name"
+                        ng-show="viewButton.visible">
+                    <md-icon md-font-icon="fa {{ viewButton.icon }}" class="fa-lg left-icon nudge-left-more"></md-icon > {{ viewButton.title }}
+                </md-button>
             </div>
 
             <div class="full-flex"></div>
         </div>
 
         <div class="right-side-panel full-flex flex-vertical" style="position:relative;">
-            <collection-browser class="full-flex flex-vertical" ng-if="view.name=='files'" collection="user._id">
+
+            <!-- File browser view -->
+            <collection-browser class="full-flex flex-vertical" drawer="user.lastDrawer" ng-if="view.name=='files'" collection="user._id">
 
             </collection-browser>
 
+            <!-- Avatar chooser view -->
             <collection-file-chooser
                 class="full-flex flex-vertical"
                 ng-if="view.name=='avatar'"
@@ -154,6 +158,7 @@
 
             </collection-file-chooser>
 
+            <!-- Chat conversation view -->
             <chat-panel
                     class="full-flex flex-vertical"
                     with="[user]"

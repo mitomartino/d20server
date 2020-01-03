@@ -10,10 +10,10 @@ var appInfo =
 
     stylesheets:
     [
-        "bower_components/html5-boilerplate/dist/css/normalize.css",
-        "bower_components/html5-boilerplate/dist/css/main.css",
-        "bower_components/font-awesome/css/font-awesome.min.css",
-        "bower_components/bootstrap-css/css/bootstrap.min.css",
+        "node_modules/html5-boilerplate/dist/css/normalize.css",
+        "node_modules/html5-boilerplate/dist/css/main.css",
+        "node_modules/font-awesome/css/font-awesome.min.css",
+        "node_modules/angular-material/angular-material.min.css",
         "css/app.css",
         "css/animate.css",
         "css/animations.css",
@@ -22,16 +22,18 @@ var appInfo =
 
     scripts:
     [
-        "bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js",
-        "bower_components/jquery/dist/jquery.min.js",
-        "bower_components/angular/angular.js",
-        "bower_components/angular-route/angular-route.js",
-        "bower_components/angular-animate/angular-animate.js",
-        "bower_components/angular-ui-router/release/angular-ui-router.min.js",
-        "bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
-        "bower_components/moment/min/moment-with-locales.min.js",
-        "bower_components/angular-momentjs/angular-momentjs.min.js",
-        "bower_components/underscore/underscore-min.js",
+        "node_modules/html5-boilerplate/dist/js/vendor/modernizr-3.8.0.min.js",
+        "node_modules/jquery/dist/jquery.min.js",
+        "node_modules/angular/angular.js",
+        "node_modules/angular-route/angular-route.js",
+        "node_modules/angular-animate/angular-animate.js",
+        "node_modules/angular-messages/angular-messages.min.js",
+        "node_modules/angular-aria/angular-aria.min.js",
+        "node_modules/angular-material/angular-material.min.js",
+        "node_modules/angular-ui-router/release/angular-ui-router.min.js",
+        "node_modules/moment/min/moment-with-locales.min.js",
+        "node_modules/angular-momentjs/angular-momentjs.min.js",
+        "node_modules/underscore/underscore-min.js",
         "/socket.io/socket.io.js",
 
         "app.js",

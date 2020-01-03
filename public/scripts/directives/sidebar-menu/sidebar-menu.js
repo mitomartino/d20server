@@ -2,8 +2,8 @@
 
 angular.module('d20helper.sidebarMenu', [])
 
-    .directive('sidebarMenu', ['$rootScope', '$state', 'applicationService', 'themeService', 'utilsService', 'constantsService',
-        function($rootScope, $state, applicationService, themeService, utilsService, constants) {
+    .directive('sidebarMenu', ['$rootScope', '$state', '$transitions', 'applicationService', 'themeService', 'utilsService', 'constantsService',
+        function($rootScope, $state, $transitions, applicationService, themeService, utilsService, constants) {
 
         var directive =
         {
@@ -45,6 +45,21 @@ angular.module('d20helper.sidebarMenu', [])
                         $scope.anchor = 'left';
                     }
 
+                    // close the sidebar when a click lands outside of it
+                    $(document).bind('mousedown', function(event) 
+                    {
+                        if ($scope.showMenu)
+                        {
+                            if (!element.find(event.target).length)
+                            {
+                                $scope.$apply(function()
+                                {
+                                    $scope.showMenu = false;
+                                });
+                            }
+                        }
+                    });
+
                     // process options when they are set
                     $scope.$watch('options', function(){
                         $scope.makeOptions();
@@ -83,7 +98,7 @@ angular.module('d20helper.sidebarMenu', [])
                     });
 
                     // when user changes views, hide all menus
-                    $rootScope.$on('$stateChangeSuccess', function()
+                    $transitions.onSuccess({}, function()
                     {
                         $scope.showMenu = false;
                     });

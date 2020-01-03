@@ -154,16 +154,13 @@ factory('chatService', ['$rootScope', '$q', 'ajaxService', 'applicationService',
         {
             return modalService.open(
             {
-                resolve:
+                locals:
                 {
-                    allowedUsers: function()
-                    {
-                        return users;
-                    }
+                    allowedUsers: users
                 },
                 templateUrl: 'scripts/controllers/chat/new-conversation.html',
                 controller:  'NewConversationModalCtrl',
-                windowClass: 'new-chat-modal'
+                cssClass:    'new-chat-modal'
             });
         }
 

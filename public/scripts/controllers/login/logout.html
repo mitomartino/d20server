@@ -14,7 +14,7 @@
             <div class="full-flex"></div>
 
             <div class="unflex flex-horizontal action-row">
-                <button type="button" auto-focus class="btn btn-default clickable full-flex" ng-if="!loginStatus.busy" ng-click="logout()">Log Out</button>
+                <md-button auto-focus class="md-raised md-primary clickable full-flex" ng-if="!loginStatus.busy" ng-click="logout()">Log Out</button>
 
                 <div class="loading-block" ng-if="loginStatus.busy">
                     <i class="fa fa-3x fa-spinner fa-spin"></i>

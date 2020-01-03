@@ -330,7 +330,7 @@ angular.module('d20helper.chatComponents', [])
 
                             for (var ii in search)
                             {
-                                if (_.findWhere(conversation.participants, {user: search[ii]}))
+                                if (_.findWhere(conversation.participants, {userId: search[ii]._id}))
                                 {
                                     return true;
                                 }
@@ -688,7 +688,7 @@ angular.module('d20helper.chatComponents', [])
                                 $scope.lastAttach = selection;
                             }
 
-                            modalService.openFileChooserModal(options).result.then(null, function()
+                            modalService.openFileChooserModal(options).then(null, function()
                             {
                                 $scope.newMessage.attachments = [];
                             });
@@ -777,7 +777,6 @@ angular.module('d20helper.chatComponents', [])
                      */
                     $scope.$on("$destroy", function() 
                     {
-                        console.log("unfocus conversation");
                         chatService.focusConversation(null);
                     });
 

@@ -5,8 +5,8 @@ angular.module('d20helper.modalService', []).
 /**
  * Controller for basic modal dialogs
  */
-controller('OptionsModalCtrl', ['$scope', 'utilsService', 'options', 'title', 'prompt', 'callback', 'cssClass',
-    function($scope, utilsService, options, title, prompt, callback, cssClass)
+controller('OptionsModalCtrl', ['$scope', '$mdDialog', 'utilsService', 'options', 'title', 'prompt', 'callback', 'cssClass',
+    function($scope, $mdDialog, utilsService, options, title, prompt, callback, cssClass)
     {
         $scope.init = function()
         {
@@ -30,11 +30,11 @@ controller('OptionsModalCtrl', ['$scope', 'utilsService', 'options', 'title', 'p
             {
                 if (option.reject)
                 {
-                    $scope.$dismiss(option);
+                    $mdDialog.cancel(option);
                 }
                 else
                 {
-                    $scope.$close(option);
+                    $mdDialog.hide(option);
                 }
             }
             else
@@ -49,11 +49,11 @@ controller('OptionsModalCtrl', ['$scope', 'utilsService', 'options', 'title', 'p
 
                     if (option.reject)
                     {
-                        $scope.$dismiss(option);
+                        $mdDialog.cancel(option);
                     }
                     else
                     {
-                        $scope.$close(option);
+                        $mdDialog.hide(option);
                     }
                 }
                 else
@@ -62,7 +62,7 @@ controller('OptionsModalCtrl', ['$scope', 'utilsService', 'options', 'title', 'p
                         function()
                         {
                             $scope.working = false;
-                            $scope.$close(option);
+                            $mdDialog.hide(option);
                         },
                         function(err)
                         {
@@ -109,9 +109,9 @@ controller('OptionsModalCtrl', ['$scope', 'utilsService', 'options', 'title', 'p
  */
 controller('UserSelectModalCtrl', [
 
-    '$scope', 'utilsService', 'title', 'prompt', 'allowedUsers', 'disallowedUsers', 'selectedUsers', 'allowSelf', 'multiSelect', 'callback', 'cssClass',
+    '$scope', '$mdDialog', 'utilsService', 'title', 'prompt', 'allowedUsers', 'disallowedUsers', 'selectedUsers', 'allowSelf', 'multiSelect', 'callback', 'cssClass',
 
-    function($scope, utilsService, title, prompt, allowedUsers, disallowedUsers, selectedUsers, allowSelf, multiSelect, callback, cssClass)
+    function($scope, $mdDialog, utilsService, title, prompt, allowedUsers, disallowedUsers, selectedUsers, allowSelf, multiSelect, callback, cssClass)
     {
         $scope.init = function()
         {
@@ -138,7 +138,7 @@ controller('UserSelectModalCtrl', [
                 if ( (!result) || (!result.then) )
                 {
                     $scope.working = false;
-                    $scope.$close($scope.selectedUsers);
+                    $mdDialog.hide($scope.selectedUsers);
                 }
                 else
                 {
@@ -146,7 +146,7 @@ controller('UserSelectModalCtrl', [
                         function()
                         {
                             $scope.working = false;
-                            $scope.$close($scope.selectedUsers);
+                            $mdDialog.hide($scope.selectedUsers);
                         },
                         function(err)
                         {
@@ -163,7 +163,7 @@ controller('UserSelectModalCtrl', [
          */
         $scope.cancel = function()
         {
-            $scope.$dismiss('cancel');
+            $mdDialog.cancel('cancel');
         }
 
         $scope.init();
@@ -173,8 +173,8 @@ controller('UserSelectModalCtrl', [
 /**
  * Controller for file-chooser dialogs
  */
-controller('FileChooserModalCtrl', ['$scope', 'collectionService', 'title', 'cssClass', 'collection', 'userCollection', 'gameCollection', 'systemCollection', 'allowedDrawers', 'drawer', 'file', 'callback', 'showPreview',
-    function($scope, collectionService, title, cssClass, collection, userCollection, gameCollection, systemCollection, allowedDrawers, drawer, file, callback, showPreview)
+controller('FileChooserModalCtrl', ['$scope', '$mdDialog', 'collectionService', 'title', 'cssClass', 'collection', 'userCollection', 'gameCollection', 'systemCollection', 'allowedDrawers', 'drawer', 'file', 'callback', 'showPreview',
+    function($scope, $mdDialog, collectionService, title, cssClass, collection, userCollection, gameCollection, systemCollection, allowedDrawers, drawer, file, callback, showPreview)
     {
         /**
          * Initialization function
@@ -217,19 +217,24 @@ controller('FileChooserModalCtrl', ['$scope', 'collectionService', 'title', 'css
             {
                 if (collDef.name)
                 {
-                    collectionService.loadCollection(collDef.name).then(function()
-                    {
-                        if ( (!$scope.collection) && (collDef.isDefault) )
+                    collectionService.loadCollection(collDef.name).then(
+                        function()
                         {
-                            $scope.collection = collDef.name;
-                        }
-                        else if (!$scope.initialCollection)
-                        {
-                            $scope.collection = collDef.name;
-                        }
+                            if ( (!$scope.collection) && (collDef.isDefault) )
+                            {
+                                $scope.collection = collDef.name;
+                            }
+                            else if (!$scope.initialCollection)
+                            {
+                                $scope.collection = collDef.name;
+                            }
 
-                        collDef.exists = true;
-                    });
+                            collDef.exists = true;
+                        },
+                        function(err)
+                        {
+                            // collection ot found
+                        });
                 }
             });
         }
@@ -262,7 +267,7 @@ controller('FileChooserModalCtrl', ['$scope', 'collectionService', 'title', 'css
 
             if (!$scope.callback)
             {
-                $scope.$close(selection);
+                $mdDialog.hide(selection);
             }
             else
             {
@@ -274,7 +279,7 @@ controller('FileChooserModalCtrl', ['$scope', 'collectionService', 'title', 'css
                 {
                     $scope.working = false;
 
-                    $scope.$close(selection);
+                    $mdDialog.hide(selection);
                 }
                 else
                 {
@@ -282,7 +287,7 @@ controller('FileChooserModalCtrl', ['$scope', 'collectionService', 'title', 'css
                         function()
                         {
                             $scope.working = false;
-                            $scope.$close(selection);
+                            $mdDialog.hide(selection);
                         },
                         function(err)
                         {
@@ -296,7 +301,7 @@ controller('FileChooserModalCtrl', ['$scope', 'collectionService', 'title', 'css
 
         $scope.cancel = function()
         {
-            $scope.$dismiss('User canceled');
+            $mdDialog.cancel('User canceled');
         }
 
         init();
@@ -310,26 +315,16 @@ controller('FileChooserModalCtrl', ['$scope', 'collectionService', 'title', 'css
  * and querying current modal.
  *
  */
-factory('modalService', ['$rootScope', '$q', '$timeout', '$uibModal', '$uibModalStack', 'constantsService',
+factory('modalService', ['$timeout', '$mdDialog', 'applicationService', 'constantsService',
 
-    function($rootScope, $q, $timeout, $uibModal, $uibModalStack, constants)
+    function($timeout, $mdDialog, applicationService, constants)
     {
         var service =
         {
             model:
             {
-                modalStack:
-                    [
-
-                    ],
-
-                pendingModals:
-                    [
-
-                    ]
             },
 
-            nextModalId: 1,
             inputSelector: 'input[type=text], input[type=password], textarea, select'
         };
 
@@ -347,117 +342,100 @@ factory('modalService', ['$rootScope', '$q', '$timeout', '$uibModal', '$uibModal
          */
         service.open = function(config)
         {
-            var modalClass = 'modal-' + model.nextModalId;
+            // whether or not clicking outside of the dialog should simply close it
+            config.clickOutsideToClose = config.clickOutsideToClose !== false;
 
-            // we want to install our own hooks on escape key, so disable the default
-            if (!config.keyboard)
+            // once the modal is created but not rendered, add our custom css class
+            config.onShowing = function(scope, element, options)
             {
-                config.keyboard = false;
-            }
+                applicationService.model.currentModal = 
+                {
+                    element: element,
+                    close: function()
+                    {
+                        $mdDialog.cancel('cancel');
+                    }
+                };
 
-            // tag this modal with its modal id, so that we can find it later
-            if (config.windowClass)
+                if (config.cssClass)
+                {
+                    element.addClass(config.cssClass);
+                }
+            };
+
+            // once we begin to remove the modal, set the current modal model to null
+            config.onRemoving = function(scope, element, options)
             {
-                config.windowClass += ' ' + modalClass;
-            }
-            else
-            {
-                config.windowClass = modalClass;
-            }
-
-            config.backdrop = 'static';
-
-            // open the modal
-            var modal = $uibModal.open(config);
-
-            // modal is pending but belongs to the modal stack
-            model.pendingModals.push(modal);
-            model.modalStack.push(modal);
+                applicationService.model.currentModal = null;
+            };
 
             // once the modal is rendered for the first time, it will no longer be pending and
             // we will be able to access the DOM
-            modal.rendered.then(function()
+            config.onComplete = function(scope, element, options) 
             {
-                var modalElement = angular.element('.' + modalClass);
-
-                // no longer pending
-                model.pendingModals = _.without(model.pendingModals, modal);
-
-                if ( (modalElement) && (modalElement.length) )
+                // apply focus to first focusable element if none is found, then apply to
+                // modal div
+                $timeout(function()
                 {
-                    var scope = modalElement.scope();
+                    var firstInput = angular.element(service.inputSelector, element).filter(':visible:first');
 
-                    // apply focus to first focusable element if none is found, then apply to
-                    // modal div
-                    $timeout(function()
+                    firstInput.focus();
+                },
+                500);
+
+                // default ok/cancel behavior
+                if (!scope.ok)
+                {
+                    scope.ok = function()
                     {
-                        var firstInput = angular.element(service.inputSelector, modalElement).filter(':visible:first');
-
-                        firstInput.focus();
-                    },
-                    500);
-
-                    if (scope)
-                    {
-                        if (!scope.ok)
-                        {
-                            scope.ok = function()
-                            {
-                                modal.close();
-                            }
-                        }
-                        if (!scope.cancel)
-                        {
-                            scope.cancel = function()
-                            {
-                                modal.dismiss('esc');
-                            }
-                        }
+                        $mdDialog.hide('ok');
                     }
-                    // add hooks for enter/escape key press
-                    modalElement.bind('keydown', function(event)
-                    {
-                        if (event.keyCode == constants.KEYS.ENTER)
-                        {
-                            if ( (scope) && (scope.ok) )
-                            {
-                                event.stopPropagation();
+                }
 
-                                scope.$apply(function()
-                                {
-                                    scope.ok(document.activeElement);
-                                });
-                            }
-                        }
-                        else if (event.keyCode == constants.KEYS.ESC)
+                if (!scope.cancel)
+                {
+                    scope.cancel = function()
+                    {
+                        $mdDialog.cancel('esc');
+                    }
+                }
+
+                // add hooks for enter/escape key press
+                element.bind('keydown', function(event)
+                {
+                    if (event.keyCode == constants.KEYS.ENTER)
+                    {
+                        if ( (scope) && (scope.ok) )
                         {
                             event.stopPropagation();
 
-                            if ( (scope) && (scope.cancel) )
+                            scope.$apply(function()
                             {
-                                scope.$apply(function()
-                                {
-                                    scope.cancel(document.activeElement);
-                                });
-                            }
-                            else
-                            {
-                                modal.dismiss('esc');
-                            }
+                                scope.ok(document.activeElement);
+                            });
                         }
-                    });
-                }
-            });
+                    }
+                    else if (event.keyCode == constants.KEYS.ESC)
+                    {
+                        event.stopPropagation();
 
-            // however the modal is closed, track it so that we can remove it from the modal stack(s)
-            modal.result.finally(function()
-            {
-                model.modalStack    = _.without(model.modalStack,    modal);
-                model.pendingModals = _.without(model.pendingModals, modal);
-            });
+                        if ( (scope) && (scope.cancel) )
+                        {
+                            scope.$apply(function()
+                            {
+                                scope.cancel(document.activeElement);
+                            });
+                        }
+                        else
+                        {
+                            modal.dismiss('esc');
+                        }
+                    }
+                });
+            };
 
-            // return the modal so that the call can
-            return modal;
+            // open the modal
+            return $mdDialog.show(config);
         }
 
         // ------------------------------------------------------------------------------------------------------
@@ -576,28 +554,13 @@ factory('modalService', ['$rootScope', '$q', '$timeout', '$uibModal', '$uibModal
                 {
                     templateUrl: 'views/modals/options-modal.html',
                     controller: 'OptionsModalCtrl',
-                    resolve:
+                    locals:
                     {
-                        title: function()
-                        {
-                            return title;
-                        },
-                        prompt: function()
-                        {
-                            return prompt;
-                        },
-                        options:  function()
-                        {
-                            return options;
-                        },
-                        callback: function()
-                        {
-                            return callback;
-                        },
-                        cssClass: function()
-                        {
-                            return cssClass;
-                        }
+                        title:  title,
+                        prompt: prompt,
+                        options:  options,
+                        callback: callback,
+                        cssClass: cssClass
                     }
                 }
             );
@@ -625,52 +588,19 @@ factory('modalService', ['$rootScope', '$q', '$timeout', '$uibModal', '$uibModal
         {
             return service.open(
             {
-                resolve:
+                locals:
                 {
-                    title: function()
-                    {
-                        return options.title || 'File Chooser';
-                    },
-                    callback: function()
-                    {
-                        return options.callback;
-                    },
-                    cssClass: function()
-                    {
-                        return options.cssClass;
-                    },
-                    collection: function()
-                    {
-                        return options.collection;
-                    },
-                    userCollection: function()
-                    {
-                        return options.userCollection;
-                    },
-                    gameCollection: function()
-                    {
-                        return options.gameCollection;
-                    },
-                    systemCollection: function()
-                    {
-                        return options.systemCollection;
-                    },
-                    drawer: function()
-                    {
-                        return options.drawer;
-                    },
-                    file: function()
-                    {
-                        return options.file;
-                    },
-                    allowedDrawers: function()
-                    {
-                        return options.allowedDrawers;
-                    },
-                    showPreview: function()
-                    {
-                        return options.showPreview;
-                    }
+                    title: options.title || 'File Chooser',
+                    callback: options.callback,
+                    cssClass: options.cssClass,
+                    collection: options.collection,
+                    userCollection: options.userCollection,
+                    gameCollection: options.gameCollection,
+                    systemCollection: options.systemCollection,
+                    drawer: options.drawer,
+                    file: options.file,
+                    allowedDrawers: options.allowedDrawers,
+                    showPreview: options.showPreview
                 },
                 templateUrl: 'views/modals/file-chooser-modal.html',
                 controller:  'FileChooserModalCtrl',
@@ -701,44 +631,17 @@ factory('modalService', ['$rootScope', '$q', '$timeout', '$uibModal', '$uibModal
         {
             return service.open(
                 {
-                    resolve:
+                    locals:
                     {
-                        title: function()
-                        {
-                           return options.title || 'File Chooser';
-                        },
-                        prompt: function()
-                        {
-                            return options.prompt;
-                        },
-                        callback: function()
-                        {
-                                   return options.callback;
-                        },
-                        cssClass: function()
-                        {
-                                   return options.cssClass;
-                        },
-                        allowedUsers: function()
-                        {
-                            return options.allowedUsers;
-                        },
-                        disallowedUsers: function()
-                        {
-                            return options.disallowedUsers;
-                        },
-                        allowSelf: function()
-                        {
-                            return options.allowSelf;
-                        },
-                        selectedUsers: function()
-                        {
-                            return options.selectedUsers;
-                        },
-                        multiSelect: function()
-                        {
-                            return options.multiSelect;
-                        },
+                        title: options.title || 'File Chooser',
+                        prompt: options.prompt,
+                        callback: options.callback,
+                        cssClass: options.cssClass,
+                        allowedUsers: options.allowedUsers,
+                        disallowedUsers: options.disallowedUsers,
+                        allowSelf: options.allowSelf,
+                        selectedUsers: options.selectedUsers,
+                        multiSelect: options.multiSelect
                     },
                     templateUrl: 'views/modals/user-select-modal.html',
                     controller:  'UserSelectModalCtrl'

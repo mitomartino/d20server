@@ -113,22 +113,22 @@ controller('AdminUsersCtrl', [
          */
         $scope.addUser = function()
         {
-            var modalInstance = modalService.open(
+            var result = modalService.open(
             {
                 templateUrl: 'scripts/controllers/admin/users/add-user.html',
-                controller: 'AdminAddUserCtrl',
-                resolve:
+                controller: 'AdminAddUserCtrl'
+            });
+
+            result.then(
+                function(newUser)
                 {
-
-                }
-            });
-
-            modalInstance.result.then(function(newUser)
-            {
-               $scope.filterByNickname();
-            });
-
-            applicationService.model.currentModal = modalInstance;
+                    $scope.filterByNickname();
+                },
+                function(err)
+                {
+                    // rejection is perfectly normal and means the user hit Cancel, but we don't want to
+                    // see a warning in the log, so we'll just note that this is intentionally ignored here.
+                });
         }
 
         /**

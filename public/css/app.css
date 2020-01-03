@@ -7,6 +7,22 @@
  * --------------------------------------------------------------------------------------------------------------------
  */
 
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * basic elements
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+a:active, a:focus 
+{
+	outline: none;
+	border: none;
+}
+
+div:focus
+{
+	outline: none;
+}
 
 /**
  * --------------------------------------------------------------------------------------------------------------------
@@ -200,6 +216,13 @@ body.flex-horizontal.ng-scope,
     justify-content: space-between;
 }
 
+.distribute-center
+{
+    display:         flex;
+    flex-direction:  row;
+    justify-content: center;
+}
+
 /**
  * --------------------------------------------------------------------------------------------------------------------
  * Text styles
@@ -386,32 +409,69 @@ body.flex-horizontal.ng-scope,
 }
 
 
-image-chooser.avatar, image-chooser.avatar > div:first-child
+image-chooser, image-chooser > div:first-child
 {
     background-color: black;
-    margin-bottom:    5px;
+	margin-bottom:    5px;
+	overflow:         hidden;	
 }
 
-image-chooser.avatar .slide-image
+image-chooser .slide
 {
-	margin:          auto;
-	width:           14vmax;
-	height:          30.5vmin;
-	background-size: cover;
-	background:      white no-repeat center;
+    position: absolute;
+    top:      0px;
+    left:     0px;
+    width:    100%;
+    height:   100%;
 }
 
-image-chooser.avatar .carousel-inner
+image-chooser .slide-image
+{
+	margin:              auto;
+	background-size:     cover;
+	background:        black no-repeat center;
+	color:             white;
+	background-size:     contain;
+    background-position: center;
+    background-repeat:   no-repeat;
+	opacity:             0;
+	pointer-events:      none;
+    -webkit-transition:  background-color 200ms ease-in, color 200ms ease-in, opacity 500ms ease-in;
+	transition:          background-color 200ms ease-in, color 200ms ease-in, opacity 500ms ease-in;
+}
+
+image-chooser .slide-image.selected
+{
+    opacity:        1.0;
+	pointer-events: all;
+}
+
+image-chooser .slide-image.selected.ng-leave-active
+{
+    opacity: 0.0;
+}
+
+image-chooser .slide-image.selected.ng-enter
+{
+    opacity: 0.0;
+}
+
+image-chooser .slide-image.selected.ng-enter-active
+{
+    opacity: 1.0;
+}
+
+image-chooser .carousel-inner
 {
 	margin: auto;
 	width:  14vmax;
 	height: 30.5vmin;
 }
 
-image-chooser.avatar .carousel-panel
+image-chooser .carousel-panel
 {
 	margin:   auto;
-	width:    14vmax;
+	width:    30vw;
 	height:   30.5vmin;
 	position: relative;
 }
@@ -425,11 +485,8 @@ image-chooser .carousel-prompt
 
 image-chooser .carousel-panel .carousel-caption
 {
-    background-color: rgba(0, 0, 0, 0.6);
-    width:            100%;
-    height:           100%;
-    top:              0px;
-    left:             0px;
+	text-align:   center;
+	text-shadow:black 2px 2px;
 }
 
 image-chooser .btn-info
@@ -570,7 +627,8 @@ image-chooser a:hover
 
 .form-line label
 {
-    width:      150px;
+	display:    inline-block;
+    width:      5vw;
     text-align: left;
 }
 
@@ -596,18 +654,25 @@ image-chooser a:hover
 .form-line > .form-messages
 {
     margin-top:    20px;
-    margin-bottom: 5px;
+	margin-bottom: 5px;
+	font-size:     0.8em;
 }
 
 /**
  * --------------------------------------------------------------------------------------------------------------------
- * Bootstrap
+ * AngularJs Material
  * --------------------------------------------------------------------------------------------------------------------
  */
 
-.nav, .pagination, .carousel, .panel-title a
+button.icon-button
 {
-    cursor: pointer;
+	text-align:   left;
+	padding-left: 2.5vmin;
+}
+
+button.icon-button md-icon
+{
+	line-height: 2.0em;
 }
 
 /**
@@ -714,7 +779,8 @@ image-chooser a:hover
 
 .modal-body collection-browser
 {
-    height: 60vmin;
+	height:    60vmin;
+	min-width: 50vw;
 }
 
 .bottom-buttons
@@ -738,11 +804,16 @@ image-chooser a:hover
 .top-view
 {
 	overflow:    hidden;
-	padding:     1.0vmin;
-	padding-top: 2.0vmin;
+	padding:     none;
 	position:    absolute;
 	width:       100%;
 	height:      100%;
+}
+
+.top-view > div
+{
+	padding:     1.0vmin;
+	padding-top: 2.0vmin;
 }
 
 .top-view.ng-enter
@@ -1092,9 +1163,10 @@ user-tile .user-avatar
 	height:  12.8vmin;
 }
 
-user-tile .user-avatar.img-circle
+.user-avatar.img-circle
 {
-	outline: none;
+	outline:       none;
+	border-radius: 50%;
 }
 
 user-tile .user-avatar img
@@ -1173,6 +1245,18 @@ user-tile .user-tab-buttons
 {
     border-top: 1px solid #d3d3d3;
     margin-top: 3.5vmin;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * Add user view
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+
+.add-user .tab-view
+{
+	width: 30vw;
+	height: 45vmin;
 }
 
 /**
@@ -1407,7 +1491,8 @@ collection-browser .audio-time-remaining
 
 .new-chat-modal .user-select-container
 {
-    margin-top:  2.5vmin;
+	margin-top:  2.5vmin;
+	min-width:   25vw;
 }
 
 .new-chat-modal user-select .fa-search
@@ -1423,7 +1508,7 @@ collection-browser .audio-time-remaining
 
 .conversations-container
 {
-	margin-top: 5vmin;
+	margin-top: 3vmin;
 }
 
 .conversations-container .conversation-preview
@@ -1457,7 +1542,7 @@ collection-browser .audio-time-remaining
 
 .conversation-preview .avatar-thumb
 {
-	outline:          2px solid black;
+	border:           2px solid black;
 	margin-right:     0.25vmax;
 	background-color: white;
 }
@@ -1617,9 +1702,14 @@ chat-panel .user-avatar
 	border: none;
 }
 
+chat-panel .message-composer .message-send
+{
+	padding-bottom: 2px;
+}
+
 chat-panel .message-composer .send-button
 {
-	font-size: 1.8vmin;
+	font-size: 2vmin;
 }
 
 chat-panel .message-composer textarea
@@ -1666,10 +1756,13 @@ chat-panel .conversation-title
 
 chat-panel .badge
 {
+	color:            white;
 	position:         absolute;
 	top:              -3px;
 	right:            -7px;
 	background-color: black;
+	padding:          0.05em;
+	border:           1px solid lightgray;
 }
 
 chat-panel .typing-indicator
@@ -1698,6 +1791,11 @@ chat-panel .side-by-side-left
 chat-conversation
 {
 	min-width: 0;
+}
+
+chat-conversations-list
+{
+	padding-top: 1.5vmin;
 }
 
 /**
@@ -1824,13 +1922,13 @@ image-attachment
 image-attachment > div
 {
 	max-width: 80%;
+	border:    2px solid white;
 }
 
 image-attachment img
 {
 	max-width: 100%;
 	height:    auto;
-	border:    2px outset white;
 }
 
 audio-attachment

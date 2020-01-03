@@ -8,9 +8,9 @@ angular.module('d20helper.userService', []).
  * Allows loading/selection/addition/updating/deletion of users
  *
  */
-factory('userService', ['$rootScope', '$q', '$state', 'ajaxService', 'applicationService', 'utilsService', 'collectionService', 'cache',
+factory('userService', ['$rootScope', '$q', '$state', '$transitions', 'ajaxService', 'applicationService', 'utilsService', 'collectionService', 'cache',
 
-    function($rootScope, $q, $state, ajaxService, applicationService, utilsService, collectionService, cache)
+    function($rootScope, $q, $state, $transitions, ajaxService, applicationService, utilsService, collectionService, cache)
     {
         var service =
         {
@@ -408,10 +408,16 @@ factory('userService', ['$rootScope', '$q', '$state', 'ajaxService', 'applicatio
                 });
             }
 
-            collectionService.loadCollection(user._id).then(function(collection)
-            {
-               user.files = collection;
-            });
+            collectionService.loadCollection(user._id).then(
+                function(collection)
+                {
+                    user.files = collection;
+                },
+                function (err)
+                {
+                    user.files = null;
+                }
+            );
         }
 
         // ------------------------------------------------------------------------------------------------------
@@ -647,7 +653,7 @@ factory('userService', ['$rootScope', '$q', '$state', 'ajaxService', 'applicatio
                 }
             });
 
-            $rootScope.$on('$stateChangeSuccess', function()
+            $transitions.onSuccess({}, function()
             {
                 if (service.model.users.editing)
                 {
@@ -656,24 +662,29 @@ factory('userService', ['$rootScope', '$q', '$state', 'ajaxService', 'applicatio
                 }
             });
 
-            collectionService.loadCollection('system').then(function(system)
-            {
-                var avatars = _.findWhere(system.drawers, {name: 'avatars'});
-
-                if (avatars)
+            collectionService.loadCollection('system').then(
+                function(system)
                 {
-                    service.model.avatars         = avatars;
-                    service.model.avatars.baseUrl = system.baseUrl + 'avatars';
-                }
+                    var avatars = _.findWhere(system.drawers, {name: 'avatars'});
 
-                _.each(service.model.users.data, function (user)
-                {
-                    if (!user.avatar)
+                    if (avatars)
                     {
-                        user.avatar = service.model.avatars.baseUrl + '/default.png';
+                        service.model.avatars         = avatars;
+                        service.model.avatars.baseUrl = system.baseUrl + 'avatars';
                     }
+
+                    _.each(service.model.users.data, function (user)
+                    {
+                        if (!user.avatar)
+                        {
+                            user.avatar = service.model.avatars.baseUrl + '/default.png';
+                        }
+                    });
+                },
+                function(err)
+                {
+                    // no system drawer
                 });
-            });
         }
 
         // ------------------------------------------------------------------------------------------------------

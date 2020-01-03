@@ -6,9 +6,9 @@ angular.module('d20helper.newConversationModal', ['ngRoute']).
  * Controller for creating new conversations
  */
 controller('NewConversationModalCtrl', [
-    '$scope', '$timeout', '$uibModalInstance', 'allowedUsers', 'constantsService', 'applicationService', 'chatService',
+    '$scope', '$mdDialog', 'allowedUsers', 'constantsService', 'applicationService', 'chatService',
 
-    function($scope, $timeout, $uibModalInstance, allowedUsers, constants, applicationService, chatService)
+    function($scope, $mdDialog, allowedUsers, constants, applicationService, chatService)
     {
         /**
          * Initialize the controller
@@ -50,7 +50,7 @@ controller('NewConversationModalCtrl', [
             var onSuccess = function(response)
             {
                 $scope.busy = false;
-                $uibModalInstance.close(response);
+                $mdDialog.hide(response);
             };
 
             var onError = function(response)

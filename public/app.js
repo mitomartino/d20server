@@ -5,8 +5,8 @@ angular.module('d20helper', [
     'ngRoute',
     'ngAnimate',
     'ui.router',
-    'ui.bootstrap',
     'angular-moment',
+    'ngMaterial',
 
     'd20helper.data.cache',
     'd20helper.data.structures',
@@ -53,8 +53,61 @@ angular.module('d20helper', [
     'd20helper.games.newGame',
     'd20helper.newConversationModal'
 ]).
-config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
+
+/**
+ * Application configuration
+ */
+config(['$urlRouterProvider', '$mdThemingProvider', function($urlRouterProvider, $mdThemingProvider) {
+
+    // configure default routes
     $urlRouterProvider.when('',  '/login');
     $urlRouterProvider.when('/', '/login');
     $urlRouterProvider.otherwise('/not-found');
+
+    // configure theming: palettte generated via
+    // http://http://mcg.mbitson.com/
+    $mdThemingProvider.definePalette('d20basic',
+    {
+        '50': 'e6edf3',
+        '100': 'bfd1e1',
+        '200': '95b3cd',
+        '300': '6b94b8',
+        '400': '4b7da9',
+        '500': '2b669a',
+        '600': '265e92',
+        '700': '205388',
+        '800': '1a497e',
+        '900': '10386c',
+        'A100': 'a1c5ff',
+        'A200': '6ea6ff',
+        'A400': '3b86ff',
+        'A700': '2277ff',
+
+        'contrastDefaultColor': 'light',
+
+        'contrastDarkColors':
+         [
+          '50',
+          '100',
+          '200',
+          '300',
+          'A100',
+          'A200'
+        ],
+
+        'contrastLightColors': 
+        [
+          '400',
+          '500',
+          '600',
+          '700',
+          '800',
+          '900',
+          'A400',
+          'A700'
+        ]
+      });
+    
+      $mdThemingProvider.theme('default')
+        .primaryPalette('d20basic');      
 }]);

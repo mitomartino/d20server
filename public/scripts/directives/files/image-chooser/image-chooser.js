@@ -34,7 +34,7 @@ angular.module('d20helper.imageChooser', [])
                 /**
                  * Link function for the directive
                  *
-                 * @param $scope   $scope for the element
+                 * @param $scope  $scope for the element
                  * @param element element that we are linking the directive to
                  * @param attrs   element attributes
                  */
@@ -59,10 +59,18 @@ angular.module('d20helper.imageChooser', [])
                             if ($scope.image)
                             {
                                 var slide = _.findWhere($scope.slides, {image: $scope.image});
+                                var currSlide = _.findWhere($scope.slides, {active: true});
+
+                                if (currSlide)
+                                {
+                                    currSlide.active = false;
+                                    $scope.activeSlide = null;
+                                }
 
                                 if (slide)
                                 {
                                     slide.active = true;
+                                    $scope.activeSlide = slide;
                                 }
                             }
                         });
@@ -237,6 +245,7 @@ angular.module('d20helper.imageChooser', [])
                         {
                             slide.active = false;
                         });
+                        $scope.activeSlide = null;
 
                         if ( (!selectSlide) && ($scope.slides) && ($scope.slides.length) )
                         {
@@ -246,14 +255,19 @@ angular.module('d20helper.imageChooser', [])
                         if (selectSlide)
                         {
                             selectSlide.active = true;
+                            $scope.activeSlide = selectSlide;
                         }
                     }
 
                     /**
                      * Show the file chooser
+                     * 
+                     * @param $event - The event to stop propagation to the carousel
                      */
-                    $scope.showFileChooser = function()
+                    $scope.showFileChooser = function($event)
                     {
+                        $event.stopPropagation();
+
                         var fileChooser = angular.element('[type="file"]', element);
 
                         if (!$scope.boundChooser)
@@ -323,13 +337,13 @@ angular.module('d20helper.imageChooser', [])
                                             if (!_.findWhere($scope.slides, {text: file.name}))
                                             {
                                                 $scope.slides.push(
-                                                    {
-                                                        index:  $scope.slides.length,
-                                                        active: false,
-                                                        text:   file.name,
-                                                        name:   file.name,
-                                                        image:  path
-                                                    });
+                                                {
+                                                    index:  $scope.slides.length,
+                                                    active: false,
+                                                    text:   file.name,
+                                                    name:   file.name,
+                                                    image:  path
+                                                });
                                             }
 
                                             $scope.image = path;
@@ -350,9 +364,13 @@ angular.module('d20helper.imageChooser', [])
 
                     /**
                      * Prompt the user to delete the current slide
+                     * 
+                     * @param $event - The event to stop propagation to the carousel
                      */
-                    $scope.promptDelete = function()
+                    $scope.promptDelete = function($event)
                     {
+                        $event.stopPropagation();
+
                         $scope.showView(
                             'prompt',
                             'Permanently delete this image?');
@@ -383,7 +401,46 @@ angular.module('d20helper.imageChooser', [])
                         req.then(
                             function(data)
                             {
-                                $scope.slides = _.without($scope.slides, $scope.activeSlide);
+                                // we are deleting the active slide, so we need to identify the new active slide
+                                // (the slide directly after the one we deleted if possible)
+                                if ($scope.activeSlide)
+                                {
+                                    var formerActive = $scope.activeSlide;
+                                    var lastSlide    = null;
+                                    var newActive    = null;
+                                    var index        = 0;
+
+                                    // we will filter and select the next slide in one step
+                                    $scope.slides = _.filter($scope.slides, function(slide)
+                                    {
+                                        // filter out the deleted slide
+                                        if (slide == $scope.activeSlide)
+                                        {
+                                            return false;
+                                        }
+
+                                        // we want to select the first slide after the deleted one
+                                        if ( (lastSlide) && (lastSlide.index < $scope.activeSlide.index) )
+                                        {
+                                            newActive = slide;
+                                        }
+
+                                        lastSlide = slide;
+
+                                        // keep indexes valid 
+                                        slide.index = index;
+                                        index += 1;
+
+                                        return true;
+                                    });
+
+                                    $scope.activeSlide = newActive;
+
+                                    if ($scope.activeSlide) 
+                                    {
+                                        $scope.activeSlide.active = true;
+                                    }
+                                }
 
                                 $scope.showView('slides');
                             },
@@ -394,6 +451,64 @@ angular.module('d20helper.imageChooser', [])
                                 $scope.showView('error', err);
                             }
                         );
+                    }
+
+                    /**
+                     * Show the next slide in the slide list
+                     */
+                    $scope.showNextSlide = function()
+                    {
+                        if ( ($scope.slides) && ($scope.slides.length > 1) )
+                        {
+                            if ($scope.activeSlide)
+                            {
+                                $scope.activeSlide.active = false;
+
+                                if ($scope.activeSlide.index < $scope.slides.length - 1)
+                                {
+                                    $scope.activeSlide = $scope.slides[$scope.activeSlide.index + 1];
+                                }
+                                else
+                                {
+                                    $scope.activeSlide = $scope.slides[0];
+                                }
+                            }
+                            else
+                            {
+                                $scope.activeSlide = $scope.slides[0];
+                            }
+
+                            $scope.activeSlide.active = true;
+                        }
+                    }
+
+                    /**
+                     * Show the previous slide in the slide list
+                     */
+                    $scope.showPreviousSlide = function()
+                    {
+                        if ( ($scope.slides) && ($scope.slides.length > 1) )
+                        {
+                            if ($scope.activeSlide)
+                            {
+                                $scope.activeSlide.active = false;
+
+                                if ($scope.activeSlide.index > 0)
+                                {
+                                    $scope.activeSlide = $scope.slides[$scope.activeSlide.index - 1];
+                                }
+                                else
+                                {
+                                    $scope.activeSlide = $scope.slides[$scope.slides.length - 1];
+                                }
+                            }
+                            else
+                            {
+                                $scope.activeSlide = $scope.slides[$scope.slides.length - 1];
+                            }
+
+                            $scope.activeSlide.active = true;
+                        }
                     }
 
                     /**

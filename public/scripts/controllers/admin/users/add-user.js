@@ -7,8 +7,8 @@ angular.module('d20helper.admin.addUser', []).
  * Controller for registering new user accounts
  *
  */
-controller('AdminAddUserCtrl', ['$scope', '$http', '$uibModalInstance', 'userService', 'constantsService',
-    function($scope, $http, $uibModalInstance, userService, constants)
+controller('AdminAddUserCtrl', ['$scope', '$mdDialog', 'userService', 'constantsService',
+    function($scope, $mdDialog, userService, constants)
     {
         /**
          * Initialize the controller
@@ -78,7 +78,7 @@ controller('AdminAddUserCtrl', ['$scope', '$http', '$uibModalInstance', 'userSer
             {
                 $scope.busy = false;
 
-                $uibModalInstance.close(response.data);
+                $mdDialog.hide(response.data);
             };
 
             var onError = function(response)
@@ -140,7 +140,7 @@ controller('AdminAddUserCtrl', ['$scope', '$http', '$uibModalInstance', 'userSer
          */
         $scope.cancel = function()
         {
-            $uibModalInstance.dismiss('cancel');
+            $mdDialog.cancel();
         }
 
         init();

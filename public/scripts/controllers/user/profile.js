@@ -14,6 +14,10 @@ config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $st
         url:         '/profile/:userId',
         templateUrl: 'scripts/controllers/user/profile.html',
         controller:  'UserProfileCtrl',
+        params:
+        {
+            userId: null
+        },
         data:
         {
             status: 'Viewing Profiles'
@@ -26,9 +30,9 @@ config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $st
  *
  * View/edit upcoming events
  */
-controller('UserProfileCtrl', ['$rootScope', '$scope', '$state', '$stateParams', 'applicationService', 'userService',
+controller('UserProfileCtrl', ['$transitions', '$scope', '$state', '$stateParams', 'applicationService', 'userService',
 
-    function($rootScope, $scope, $state, $stateParams, applicationService, userService)
+    function($transitions, $scope, $state, $stateParams, applicationService, userService)
     {
         /**
          * Initialize the controller
@@ -36,7 +40,7 @@ controller('UserProfileCtrl', ['$rootScope', '$scope', '$state', '$stateParams',
         function init()
         {
             // when the state changes, we want to try to update our message
-            $rootScope.$on('$stateChangeSuccess', function (event, toState)
+            $transitions.onSuccess({}, function(transition)
             {
                 $scope.setUserFromState();
             });

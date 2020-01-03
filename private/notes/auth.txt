@@ -1,0 +1,8 @@
+mongo-express:
+------------------------------
+host:     localhost:8081
+username: admin
+password: pass
+
+admin@d20server.org
+billissupreme

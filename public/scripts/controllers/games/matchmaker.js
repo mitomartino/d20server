@@ -132,7 +132,7 @@ controller('GamesMatchmakerCtrl', ['$scope', '$timeout', 'modalService', 'gameSe
                 'Delete game',
                 'This operation cannot be undone.  Delete game ' + game.title + '?');
 
-            promise.result.then(function()
+            promise.then(function()
             {
                 console.log('delete');
             });
