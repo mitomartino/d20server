@@ -731,7 +731,7 @@ angular.module('d20helper.chatComponents', [])
                         if ($scope.conversation)
                         {
                             var currUser = applicationService.model.currentUser;
-                            var thisUser = _.findWhere($scope.conversation.particpants, {userId: currUser._id});
+                            var thisUser = _.findWhere($scope.conversation.participants, {userId: currUser._id});
 
                             if (!thisUser)
                             {

@@ -19,7 +19,17 @@ a:active, a:focus
 	border: none;
 }
 
-div:focus
+div:focus, div:active
+{
+	outline: none;
+}
+
+i:focus, i:active
+{
+	outline: none;
+}
+
+span:focus, span:active
 {
 	outline: none;
 }
@@ -46,6 +56,11 @@ div:focus
 {
     flex-shrink:  1;
     flex-grow:    1;
+}
+
+.flex-equal-width
+{
+	flex-basis: 0;
 }
 
 .unflex
@@ -221,6 +236,21 @@ body.flex-horizontal.ng-scope,
     display:         flex;
     flex-direction:  row;
     justify-content: center;
+}
+
+.float-left
+{
+    float: left;
+}
+
+.float-right
+{
+    float: right;
+}
+
+.float-clear
+{
+	clear: both;
 }
 
 /**
@@ -468,6 +498,36 @@ image-chooser .carousel-inner
 	height: 30.5vmin;
 }
 
+image-chooser .carousel-controls
+{
+	position:  absolute;
+	top:       50%;
+	transform: translateY(-50%);
+}
+
+image-chooser .carousel-controls.previous-slide
+{
+	left: 4px;
+}
+
+image-chooser .carousel-controls.next-slide
+{
+	right: 4px;
+}
+
+image-chooser .carousel-controls i
+{
+	color:               lightgray;
+	opacity:             0.4;
+    -webkit-transition:  opacity 200ms ease-in, color 200ms ease-in;
+	transition:          opacity 200ms ease-in, color 200ms ease-in;
+}
+
+image-chooser .carousel-controls i:hover
+{
+	opacity: 1;
+}
+
 image-chooser .carousel-panel
 {
 	margin:   auto;
@@ -675,6 +735,12 @@ button.icon-button md-icon
 	line-height: 2.0em;
 }
 
+md-input-container.md-block
+{
+	background-color: #f9f9f9;
+}
+
+
 /**
  * --------------------------------------------------------------------------------------------------------------------
  * Modal dialogs
@@ -880,6 +946,17 @@ button.icon-button md-icon
 .active-drop-target *
 {
     pointer-events: none;
+}
+
+.drop-zone 
+{
+	visibility: hidden;
+}
+
+.active-drop-target > .drop-zone
+{
+	visibility: visible;
+	pointer-events: none;
 }
 
 /**

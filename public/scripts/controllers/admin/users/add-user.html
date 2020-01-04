@@ -7,74 +7,72 @@
 <div class="modal-body add-user flex-vertical">
 
     <div class="unflex flex-horizontal tabs">
-        <div class="full-flex" ng-repeat="tab in tabs" ng-class="{'active': view.name == tab.name}">
+        <div class="full-flex flex-equal-width" ng-repeat="tab in tabs" ng-class="{'active': view.name == tab.name}">
             <span class="clickable" ng-click="view.name = tab.name">{{ tab.title }}</span>
         </div>
     </div>
 
     <div class="tab-view animate-slide-right" ng-show="view.name=='general'">
-        <div class="unflex flex-horizontal form-line" >
-            <div class="unflex">
-                <label for="email">E-mail:</label>
-            </div>
-            <div class="full-flex">
-                <input type="text" auto-focus name="email" ng-model="user.email" title="email address" placeholder="Enter an email address">
-                <div class="unflex flex-horizontal form-line" >
-                    <span class="validation-error" ng-if="errors.email">{{ errors.email }}</span>
+
+        <form name="conversationForm" autocomplete="off">
+
+            <md-input-container class="md-block" >
+                <label>E-Mail</label>
+
+                <input md-autofocus md-maxlength="50" required="" name="email" ng-model="user.email" type="email" autocomplete="new-email"/>
+                <div class="hint">Enter your email address</div>
+                <div ng-messages="conversationForm.email.$error">
+                    <div ng-message="required">E-mail is required</div>            
+                    <div ng-message="email">A valid E-mail is required</div>            
                 </div>
-            </div>
-        </div>
+            </md-input-container>
+            
+            <md-input-container class="md-block" >
+                <label>Name</label>
 
-        <div class="unflex flex-horizontal form-line" >
-            <div class="unflex">
-                <label for="nickname">Nickname:</label>
-            </div>
-            <div class="full-flex">
-                <input type="text" name="nickname" ng-model="user.nickname" title="nickname" placeholder="Enter the name to display">
-                <div class="unflex flex-horizontal form-line" >
-                    <span class="validation-error" ng-if="errors.nickname">{{ errors.nickname }}</span>
+                <input md-maxlength="20" required="" name="nickname" ng-model="user.nickname" />
+                <div class="hint">Enter the name other users will see</div>
+                <div ng-messages="conversationForm.nickname.$error">
+                    <div ng-message="required">A man needs a name</div>            
+                    <div ng-message="md-maxlength">Name can be up to 20 characters</div>
                 </div>
-            </div>
-        </div>
+            </md-input-container>
+            
+            <md-input-container class="md-block" >
+                <label>Password</label>
 
-        <div class="unflex flex-horizontal form-line" >
-            <div class="unflex">
-                <label for="password">Password:</label>
-            </div>
-            <div class="full-flex">
-                <input type="password" name="password" ng-model="user.password" title="password">
-                <div class="unflex flex-horizontal form-line" >
-                    <span class="validation-error" ng-if="errors.password">{{ errors.password }}</span>
+                <input md-maxlength="20" required="" name="password" ng-model="user.password" type="password" autocomplete="new-password"/>
+                <div class="hint">Set a password for your account</div>
+                <div ng-messages="conversationForm.password.$error">
+                    <div ng-message="required">Password is required</div>            
                 </div>
-            </div>
-        </div>
+            </md-input-container>
+            
+            <md-input-container class="md-block" >
+                <label>Pronouns</label>
+
+                <md-select ng-model="user.pronouns">
+                    <md-option ng-repeat="(index, pronoun) in pronouns" ng-value="pronoun.value" ng-selected="index == 0">
+                        {{pronoun.label}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+        </form>
 
         <div class="unflex flex-horizontal form-line" >
-            <div class="unflex">
-                <label for="pronouns">Pronouns:</label>
-            </div>
-            <div class="full-flex">
-                <select ng-model="user.pronouns" ng-options="value.value as value.label for value in pronouns" name="pronouns">
-                </select>
-                <div class="unflex flex-horizontal form-line" >
-                    <span class="validation-error" ng-if="errors.pronouns">{{ errors.pronouns }}</span>
-                </div>
-            </div>
+            <span class="validation-error" ng-if="errors.server">{{ errors.server }}</span>
         </div>
+            
+    </div>
 
-        <div class="unflex flex-horizontal form-line nudge-down-more" >
-            <div class="unflex">
-                <label for="about">About Me:</label>
-            </div>
-            <div class="full-flex">
-            </div>
-        </div>
+   <div class="tab-view animate-slide-right" ng-show="view.name=='aboutme'">
 
-        <div class="unflex flex-horizontal form-line" >
-            <div class="full-flex">
-                <textarea ng-model="user.about" rows="5"></textarea>
-            </div>
-        </div>
+        <md-input-container class="md-block" >
+            <label>About Me:</label>
+            <textarea ng-model="user.about" md-maxlength="150" rows="5" max-rows="10" placeholder="Say something about yourself"></textarea> 
+        </md-input-container>
+
     </div>
 
     <div class="tab-view animate-slide-right" ng-show="view.name=='avatar'">
@@ -94,14 +92,7 @@
 
 </div>
 
-<div class="unflex flex-horizontal form-line" >
-    <span class="validation-error" ng-if="errors.server">{{ errors.server }}</span>
-</div>
-
 <div class="unflex flex-horizontal action-row">
-    <md-button class="md-raised md-primary clickable full-flex" ng-if="!busy" ng-click="addUser()">Add User</md-button>
-    <md-button class="md-raised md-warn clickable full-flex" ng-if="!busy" ng-click="cancel()">Cancel</button>
-    <div class="loading-block" ng-if="busy">
-        <i class="fa fa-3x fa-spinner fa-spin"></i>
-    </div>
+    <md-button class="md-raised md-primary clickable full-flex" ng-click="addUser()">Add User</md-button>
+    <md-button class="md-raised md-warn clickable full-flex" ng-click="cancel()">Cancel</button>
 </div>

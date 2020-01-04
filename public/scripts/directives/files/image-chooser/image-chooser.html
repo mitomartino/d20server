@@ -3,9 +3,15 @@
 <!-- Image chooser carousel -->
 <div class="full-flex carousel-panel absolute-anchor">
 
+    <!-- This overlay catches mouse pointer events while drag and drop events are active   -->
+    <!-- In order to prevent spurious dragleave events from occurring when the mouse lands -->
+    <!-- on child elements -->
+    <div class="drop-zone overlay"></div>
+    
     <!-- Image slides -->
     <div 
         ng-repeat="slide in slides" 
+        ng-if="slide.active"
         class="slide-image full-flex overlay" 
         ng-class="{'selected': slide.active}"
         style="background-image: url('{{slide.image}}')"
@@ -16,7 +22,7 @@
         </div>
     
         <!-- Controls to add/remove images; hidden until user mouses over this panel -->
-        <div class="overlay hide-not-hovered" ng-click="showNextSlide()" >
+        <div class="overlay hide-not-hovered" >
             <div class="flex-horizontal" nf-if="(slide.image) && (!readOnly)">
                 <div class="unflex new-slide-button clickable margin5"
                         show-if-authorized="manage resources"
@@ -36,6 +42,15 @@
             </div>
         </div>
     
+    </div>
+
+    <!-- Control Panel -->
+    <div class="carousel-controls previous-slide" ng-if="(state.view == 'slides') && (slides.length > 0)">
+            <i class="fa fa-3x fa-chevron-left clickable" ng-click="showPreviousSlide()"></i>
+    </div>
+
+    <div class="carousel-controls next-slide" ng-if="(state.view == 'slides') && (slides.length > 0)">
+        <i class="fa fa-3x fa-chevron-right clickable" ng-click="showNextSlide()"></i>
     </div>
 
     <!-- No slides available message -->

@@ -49,7 +49,11 @@ var User = new mongoose.Schema({
 
 var options =
 {
-    usernameField: 'email'
+    usernameField: 'email',
+    errorMessages:
+    {
+        UserExistsError: 'An account with that email is already registered'
+    }
 };
 
 User.plugin(plm, options);
@@ -67,7 +71,6 @@ User.methods.resolve = function(references, callback)
 {
     var i          = 0;
     var fieldName  = '';
-    var foreignKey = '';
     var thisUser   = this;
     var thisModel  = thisUser.collection.name;
 

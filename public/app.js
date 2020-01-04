@@ -4,6 +4,7 @@
 angular.module('d20helper', [
     'ngRoute',
     'ngAnimate',
+    'ngMessages',
     'ui.router',
     'angular-moment',
     'ngMaterial',

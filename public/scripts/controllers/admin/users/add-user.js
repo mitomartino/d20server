@@ -7,8 +7,8 @@ angular.module('d20helper.admin.addUser', []).
  * Controller for registering new user accounts
  *
  */
-controller('AdminAddUserCtrl', ['$scope', '$mdDialog', 'userService', 'constantsService',
-    function($scope, $mdDialog, userService, constants)
+controller('AdminAddUserCtrl', ['$scope', '$mdDialog', 'utilsService', 'userService', 'constantsService',
+    function($scope, $mdDialog, utilsService, userService, constants)
     {
         /**
          * Initialize the controller
@@ -25,6 +25,10 @@ controller('AdminAddUserCtrl', ['$scope', '$mdDialog', 'userService', 'constants
                 {
                     name:  'general',
                     title: 'The Basics',
+                },
+                {
+                    name:  'aboutme',
+                    title: 'About Me',
                 },
                 {
                     name:  'avatar',
@@ -53,9 +57,17 @@ controller('AdminAddUserCtrl', ['$scope', '$mdDialog', 'userService', 'constants
                 pronouns: null,
                 password: null
             };
-
+            
             $scope.busy   = false;
             $scope.errors = [];
+        }
+
+        /**
+         * ok/enter handler
+         */
+        $scope.ok = function()
+        {
+            $scope.addUser();
         }
 
         /**
@@ -87,11 +99,10 @@ controller('AdminAddUserCtrl', ['$scope', '$mdDialog', 'userService', 'constants
 
                 $scope.errors =
                 {
-                    server: response.data.message
+                    server: utilsService.getMessageFromError(response.data.message, 'Failed to add new user')
                 };
 
-                $scope.view = 'general';
-
+                $scope.view.name = 'general';
             };
 
             req.then(onSuccess, onError);
@@ -104,35 +115,7 @@ controller('AdminAddUserCtrl', ['$scope', '$mdDialog', 'userService', 'constants
          */
         $scope.validate = function()
         {
-            var valid  = true;
-
-            $scope.errors = {};
-
-            if ( (!$scope.user.email) || ($scope.user.email.indexOf('@') == -1) )
-            {
-                valid = false;
-                $scope.errors.email = 'must be a valid email address';
-            }
-
-            if ( (!$scope.user.nickname) || (!$scope.user.nickname.length) || ($scope.user.nickname.length > 16) )
-            {
-                valid = false;
-                $scope.errors.nickname = 'must be between 1 and 16 characters';
-            }
-
-            if ( (!$scope.user.password) || ($scope.user.password.length < 6) )
-            {
-                valid = false;
-                $scope.errors.password = 'must contain at least 6 characters';
-            }
-
-            if (!$scope.user.pronouns)
-            {
-                valid = false;
-                $scope.errors.pronouns = 'must contain a valid selection';
-            }
-
-            return (valid);
+            return ($scope.conversationForm.$valid);
         }
 
         /**
