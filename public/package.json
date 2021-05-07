@@ -19,6 +19,6 @@
     "html5-boilerplate": "^7.3.0",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
-    "underscore": "^1.9.1"
+    "underscore": "^1.12.1"
   }
 }
